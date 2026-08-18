@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate override from ACL4SSR
+      - name: Generate override and mirror rulesets
         run: node scripts/generate.mjs
 
       - name: Show changes
@@ -35,12 +35,12 @@ jobs:
       - name: Commit generated changes
         shell: bash
         run: |
-          if git diff --quiet -- dist/ upstream/ upstream.json; then
+          if git diff --quiet -- dist/ upstream/ upstream.json rulesets/; then
             echo 'No upstream/generated changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add dist/ upstream/ upstream.json
-          git commit -m 'chore: sync ACL4SSR upstream'
+          git add dist/ upstream/ upstream.json rulesets/
+          git commit -m 'chore: sync ACL4SSR upstream and rulesets'
           git push

@@ -1,7 +1,7 @@
 {
   "upstream": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini",
   "sha256": "034bb8a638947a1d282742f9f11ea4fe7c916b6fd72805388cd0cc6e5ccc51a3",
-  "generatedAt": "2026-08-18T17:05:50.684Z",
+  "generatedAt": "2026-08-18T17:15:51.118Z",
   "rules": 33,
   "groups": 29,
   "providers": 31,
@@ -9,217 +9,217 @@
     {
       "provider": "LocalAreaNetwork_acf094a5",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/LocalAreaNetwork_acf094a5.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/LocalAreaNetwork_acf094a5.list",
       "sha256": "0789504d97d8f5b14513c529c61c06f4f862c5cfd20f7cb30bbcd38357e54468",
       "bytes": 1217
     },
     {
       "provider": "UnBan_0d9969ff",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/UnBan_0d9969ff.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/UnBan_0d9969ff.list",
       "sha256": "016837560f1f0eeb576f81600c95b547bd82e27ba27a175a3b5010de9bd18ffa",
       "bytes": 1048
     },
     {
       "provider": "BanAD_abee8c0e",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BanAD_abee8c0e.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/BanAD_abee8c0e.list",
       "sha256": "27a5f6d018d428409d8da5d9f390a46298d505ae4941bb8172f052055abe7262",
       "bytes": 15550
     },
     {
       "provider": "BanProgramAD_28594a4a",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BanProgramAD_28594a4a.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/BanProgramAD_28594a4a.list",
       "sha256": "35cefd7a4c01d2efa9b4c7928e21caa348f78a3f60b46d7d850f1e3334a5a766",
       "bytes": 32638
     },
     {
       "provider": "GoogleFCM_2c448de1",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/GoogleFCM_2c448de1.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/GoogleFCM_2c448de1.list",
       "sha256": "d810e40f3294eea783149510bf45556bf50e5246637ddbb50ad3028ac4957b45",
       "bytes": 1615
     },
     {
       "provider": "GoogleCN_8424d68f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/GoogleCN_8424d68f.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/GoogleCN_8424d68f.list",
       "sha256": "00ffcc16d0eb1898cba4f9c2cc2ce76a8f70bef7a03aea436dad79982b77c8ca",
       "bytes": 1016
     },
     {
       "provider": "SteamCN_b1174c6f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/SteamCN_b1174c6f.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/SteamCN_b1174c6f.list",
       "sha256": "7337ee246d54b7b95a8379ef2b5f410a755d8f7132cbf7569d08d1362869f807",
       "bytes": 498
     },
     {
       "provider": "Bing_e164d72c",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Bing.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bing_e164d72c.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Bing_e164d72c.list",
       "sha256": "51c227011e2e3ea2eeb7e89113fb468f08331038dacd265481135e4337e86c43",
       "bytes": 181
     },
     {
       "provider": "OneDrive_005b69aa",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/OneDrive.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/OneDrive_005b69aa.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/OneDrive_005b69aa.list",
       "sha256": "798fe9b6ed2920a7caa5b75eb44a2e41e464878ff87b38ec962cc2ec13d8be3c",
       "bytes": 560
     },
     {
       "provider": "Microsoft_ed6d00d3",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Microsoft_ed6d00d3.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Microsoft_ed6d00d3.list",
       "sha256": "8d16372cb9390fa9ca578c2919507478adcd9202af4bba51770238841aaf8468",
       "bytes": 2332
     },
     {
       "provider": "Apple_26dcf8cb",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Apple_26dcf8cb.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Apple_26dcf8cb.list",
       "sha256": "7b2e60cd0bf3c4bfb1369890d39cc3783bdfcb016089b78acee0ff6f0d4e51c5",
       "bytes": 922
     },
     {
       "provider": "Telegram_85593da4",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Telegram.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Telegram_85593da4.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Telegram_85593da4.list",
       "sha256": "483f613b31a1c054ddfffa6584b449f4447944ea58b8c1fc06b67eb13c09db89",
       "bytes": 479
     },
     {
       "provider": "AI_a9f09ade",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/AI.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/AI_a9f09ade.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/AI_a9f09ade.list",
       "sha256": "63e70895ac8c04c3b28965dc0b4ba9ceb3a1313a66b49487ed96005debc97e1e",
       "bytes": 1456
     },
     {
       "provider": "OpenAi_a7d75fa5",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/OpenAi_a7d75fa5.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/OpenAi_a7d75fa5.list",
       "sha256": "c4f839e4dda6cb96e4373349c72b4e5f848b8ae03564c0d0eae0873955310129",
       "bytes": 539
     },
     {
       "provider": "NetEaseMusic_ba8da7f9",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/NetEaseMusic.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/NetEaseMusic_ba8da7f9.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/NetEaseMusic_ba8da7f9.list",
       "sha256": "15ae1b8ad760e300121378b80ea906fc9f09a767f4f1db05f6f010dcfce3dab3",
       "bytes": 1368
     },
     {
       "provider": "Epic_6cf6ed93",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Epic.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Epic_6cf6ed93.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Epic_6cf6ed93.list",
       "sha256": "b0288addbceed03366cc793b4254168fe9e6e7c9fa54875026fb772adb5ba31d",
       "bytes": 204
     },
     {
       "provider": "Origin_178c71cd",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Origin.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Origin_178c71cd.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Origin_178c71cd.list",
       "sha256": "908e10171df4105de1ff01bb257ba46e44d7511c42476e564689b5b5d5c321d6",
       "bytes": 237
     },
     {
       "provider": "Sony_0377de0f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Sony.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Sony_0377de0f.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Sony_0377de0f.list",
       "sha256": "a9c8c43c96700f3f21c1ced83a1eac7c7ca0e6cec0e6745934902a3ed203289f",
       "bytes": 195
     },
     {
       "provider": "Steam_ff9dec32",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Steam.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Steam_ff9dec32.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Steam_ff9dec32.list",
       "sha256": "5d144ed75f2205941b4d72a284ad77494ab236d9c710cbb0200bd39c9933c345",
       "bytes": 608
     },
     {
       "provider": "Nintendo_50ae9e3d",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Nintendo.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Nintendo_50ae9e3d.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Nintendo_50ae9e3d.list",
       "sha256": "9c87d2656c1b1e74494f3f9acc72a0fbb4170d3915f533f78775bd2a20b7e7d4",
       "bytes": 450
     },
     {
       "provider": "YouTube_1e8c5527",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/YouTube_1e8c5527.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/YouTube_1e8c5527.list",
       "sha256": "1b43d418785e46c9ed36f0eec8f35bf405d904536526fd813e0ff54d7f80e98c",
       "bytes": 419
     },
     {
       "provider": "Netflix_40b41043",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Netflix.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Netflix_40b41043.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Netflix_40b41043.list",
       "sha256": "00be3d935694387890c2ebe01a374c7404ef6f3eb54815cf7f720bc8e06d41ba",
       "bytes": 1332
     },
     {
       "provider": "Bahamut_6939319a",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bahamut.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bahamut_6939319a.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Bahamut_6939319a.list",
       "sha256": "797a91574f8360a9d9af573c6fd50536f2471a9f36759f3a03f478a4aa8514ff",
       "bytes": 183
     },
     {
       "provider": "BilibiliHMT_cc9a5c57",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/BilibiliHMT.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BilibiliHMT_cc9a5c57.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/BilibiliHMT_cc9a5c57.list",
       "sha256": "5c988d99d792847d84b0b3088d7290b6aa5ba1c86270b2207f95a13fde4cc673",
       "bytes": 796
     },
     {
       "provider": "Bilibili_5a7c8357",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bilibili.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bilibili_5a7c8357.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Bilibili_5a7c8357.list",
       "sha256": "83b2ede925a4eaa267ee99b1a7d427c3925d1fba99f9561c1567a91f21b5bdb6",
       "bytes": 575
     },
     {
       "provider": "ChinaMedia_49a8480d",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaMedia_49a8480d.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ChinaMedia_49a8480d.list",
       "sha256": "622faf0b5ff3e9f4675a9ae28d8abe57cd2cc58c4ac52871007c7247a0497fda",
       "bytes": 1307
     },
     {
       "provider": "ProxyMedia_41da071f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyMedia_41da071f.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ProxyMedia_41da071f.list",
       "sha256": "07e63092a07b8d5e6940ce719de718022e722fe2d054d94e616a9fce24f2e710",
       "bytes": 11503
     },
     {
       "provider": "ProxyGFWlist_1332c956",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyGFWlist_1332c956.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ProxyGFWlist_1332c956.list",
       "sha256": "72d5f97cb3adedd7ef632962effda4aa3b9953da20427cd6050d55d1184de5ea",
       "bytes": 191112
     },
     {
       "provider": "ChinaDomain_f5fc54a5",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaDomain_f5fc54a5.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ChinaDomain_f5fc54a5.list",
       "sha256": "362edd1f605742b360eaf138f151d7eea96cc17f20ef12da73acbfb80c350e08",
       "bytes": 17251
     },
     {
       "provider": "ChinaCompanyIp_a42987c0",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaCompanyIp_a42987c0.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ChinaCompanyIp_a42987c0.list",
       "sha256": "2af1376394019bc819c96fddfb73514c8997ca72a155bc7b83f9dcb10a421d65",
       "bytes": 7258
     },
     {
       "provider": "Download_60a8ec99",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Download.list",
-      "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Download_60a8ec99.list",
+      "mirror": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Download_60a8ec99.list",
       "sha256": "62b72d16b8f2bcbc80eb2c7af35dc03b31c4d82e732af6d227c2a311f04bdadc",
       "bytes": 928
     }

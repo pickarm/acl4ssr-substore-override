@@ -1,0 +1,14 @@
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+
+This repository contains adapted/generated material derived from ACL4SSR/ACL4SSR.
+Upstream: https://github.com/ACL4SSR/ACL4SSR
+Upstream license: CC BY-SA 4.0
+
+You are free to share and adapt this material under the terms of CC BY-SA 4.0,
+including attribution and ShareAlike requirements.
+
+License text and legal code:
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+Modifications in this repository include automated conversion of ACL4SSR
+subconverter rule/group definitions into Sub-Store/Mihomo JavaScript override data.

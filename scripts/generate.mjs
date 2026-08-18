@@ -4,7 +4,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 const UPSTREAM = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini';
 const UPSTREAM_REPO = 'https://github.com/ACL4SSR/ACL4SSR';
 const ALLOWED_RULE_PREFIX = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/';
-const MIRROR_RAW_BASE = 'https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets';
+const MIRROR_RAW_BASE = 'https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets';
 const OUT = 'dist/acl4ssr-full.js';
 const SNAPSHOT = 'upstream/ACL4SSR_Online_Full.ini';
 const RULESET_DIR = 'rulesets';

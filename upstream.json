@@ -1,10 +1,14 @@
 {
   "upstream": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini",
   "sha256": "034bb8a638947a1d282742f9f11ea4fe7c916b6fd72805388cd0cc6e5ccc51a3",
-  "generatedAt": "2026-08-18T18:55:36.472Z",
+  "generatedAt": "2026-08-19T01:47:04.531Z",
   "rules": 33,
   "groups": 29,
   "providers": 31,
+  "outputs": {
+    "mihomo": "dist/acl4ssr-full.js",
+    "loon": "dist/acl4ssr-loon.conf"
+  },
   "mirroredRulesets": [
     {
       "provider": "LocalAreaNetwork_acf094a5",

@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/generate.mjs'
+      - 'scripts/loon.mjs'
       - '.github/workflows/sync-upstream.yml'
 
 permissions:
@@ -26,7 +27,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate override and mirror rulesets
+      - name: Generate Mihomo/Loon outputs and mirror rulesets
         run: node scripts/generate.mjs
 
       - name: Show changes
@@ -42,5 +43,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add dist/ upstream/ upstream.json rulesets/
-          git commit -m 'chore: sync ACL4SSR upstream and rulesets'
+          git commit -m 'chore: sync ACL4SSR upstream and regenerate outputs'
           git push

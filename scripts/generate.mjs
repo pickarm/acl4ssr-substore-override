@@ -206,7 +206,6 @@ async function main() {
   await writeFile('upstream.json', JSON.stringify({
     upstream: UPSTREAM,
     sha256: upstreamSha,
-    generatedAt: new Date().toISOString(),
     ...meta,
     outputs: { mihomo: MIHOMO_OUT, loon: LOON_OUT },
     mirroredRulesets,

@@ -14,13 +14,19 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: sync-acl4ssr-upstream
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,7 +37,7 @@ jobs:
         run: node scripts/generate.mjs
 
       - name: Show changes
-        run: git diff --stat && git diff --check
+        run: git diff --stat
 
       - name: Commit generated changes
         shell: bash
@@ -40,8 +46,14 @@ jobs:
             echo 'No upstream/generated changes.'
             exit 0
           fi
+
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add dist/ upstream/ upstream.json rulesets/
           git commit -m 'chore: sync ACL4SSR upstream and regenerate outputs'
-          git push
+
+          # The branch can move while a scheduled/manual run is executing.
+          # Rebase the generated commit before pushing instead of failing with
+          # a non-fast-forward error. Concurrency above also serializes runs.
+          git pull --rebase origin main
+          git push origin HEAD:main

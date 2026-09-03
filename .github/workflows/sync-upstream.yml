@@ -4,18 +4,25 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 */6 * * *'
+  pull_request:
+    paths:
+      - 'scripts/generate.mjs'
+      - 'scripts/loon.mjs'
+      - 'scripts/sing-box.mjs'
+      - '.github/workflows/sync-upstream.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/generate.mjs'
       - 'scripts/loon.mjs'
+      - 'scripts/sing-box.mjs'
       - '.github/workflows/sync-upstream.yml'
 
 permissions:
   contents: write
 
 concurrency:
-  group: sync-acl4ssr-upstream
+  group: sync-acl4ssr-upstream-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -36,10 +43,25 @@ jobs:
       - name: Generate Mihomo/Loon outputs and mirror rulesets
         run: node scripts/generate.mjs
 
+      - name: Generate sing-box AI source rule-set
+        run: node scripts/sing-box.mjs
+
+      - name: Compile sing-box AI binary rule-set
+        shell: bash
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "$PWD:/work" \
+            -w /work \
+            ghcr.io/sagernet/sing-box:v1.14.0 \
+            rule-set compile --output dist/sing-box/ai.srs dist/sing-box/ai.json
+          test -s dist/sing-box/ai.srs
+
       - name: Show changes
         run: git diff --stat
 
       - name: Commit generated changes
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           if git diff --quiet -- dist/ upstream/ upstream.json rulesets/; then

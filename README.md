@@ -1,6 +1,6 @@
 # ACL4SSR Sub-Store Override
 
-把 ACL4SSR 官方 `ACL4SSR_Online_Full.ini` 自动转换为可用于 **Sub-Store / Mihomo** 与 **Loon** 的双输出配置，并持续跟踪上游更新。
+把 ACL4SSR 官方 `ACL4SSR_Online_Full.ini` 自动转换为可用于 **Sub-Store / Mihomo**、**Loon** 与 **sing-box AI 分流** 的输出配置，并持续跟踪上游更新。
 
 > 非 ACL4SSR / Sub-Store 官方项目。规则与分组定义来源于 ACL4SSR，上游节点转换能力依赖 Sub-Store。
 
@@ -8,6 +8,7 @@
 
 - ACL4SSR：<https://github.com/ACL4SSR/ACL4SSR>
 - Sub-Store：<https://github.com/sub-store-org/Sub-Store>
+- sing-box：<https://github.com/SagerNet/sing-box>
 - 本项目：<https://github.com/pickarm/acl4ssr-substore-override>
 
 ## 输出文件
@@ -15,7 +16,10 @@
 ```text
 dist/
 ├── acl4ssr-full.js      # Sub-Store / Mihomo JavaScript 覆写
-└── acl4ssr-loon.conf    # Loon 配置模板
+├── acl4ssr-loon.conf    # Loon 配置模板
+└── sing-box/
+    ├── ai.json          # sing-box source rule-set
+    └── ai.srs           # sing-box binary rule-set
 ```
 
 规则文件统一镜像到：
@@ -124,6 +128,53 @@ Subs = https://example.com/download/collection/all?target=Loon&includeUnsupporte
 
 > 不要把 `acl4ssr-loon.conf` 填到 Loon 的“添加订阅”节点输入框里；节点订阅应该使用 Sub-Store 的 `target=Loon` 链接。
 
+## sing-box AI 规则集
+
+项目会从 ACL4SSR 当前镜像得到的 `AI_*.list` 自动生成 sing-box Headless Rule，并同时发布 source JSON 与编译后的二进制 `.srs`：
+
+```text
+https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/sing-box/ai.json
+https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/sing-box/ai.srs
+```
+
+生成器当前无损转换以下 ACL4SSR AI 规则类型：
+
+- `DOMAIN`
+- `DOMAIN-SUFFIX`
+- `DOMAIN-KEYWORD`
+- `DOMAIN-REGEX`
+
+如果 ACL4SSR 的 AI 规则未来出现未支持的类型，生成任务会直接失败，而不是静默丢规则。
+
+### sing-box 路由示例
+
+下面示例把命中 AI 规则集的连接送到名为 `us-home` 的出站。推荐使用体积更小的二进制 `.srs`：
+
+```json
+{
+  "route": {
+    "rules": [
+      {
+        "rule_set": "acl4ssr-ai",
+        "action": "route",
+        "outbound": "us-home"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "acl4ssr-ai",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/sing-box/ai.srs",
+        "update_interval": "6h"
+      }
+    ]
+  }
+}
+```
+
+需要调试或审计域名时，可以把 `format` 改为 `source` 并把 URL 换成 `ai.json`。
+
 ## 自动同步机制
 
 上游配置：
@@ -132,7 +183,7 @@ Subs = https://example.com/download/collection/all?target=Loon&includeUnsupporte
 https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini
 ```
 
-`.github/workflows/sync-upstream.yml` 每 6 小时运行一次，也支持手动运行。
+`.github/workflows/sync-upstream.yml` 每 6 小时运行一次，也支持手动运行；Pull Request 会执行同样的生成与 sing-box 编译检查，但不会自动提交生成物。
 
 同步流程：
 
@@ -142,8 +193,10 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_On
 4. 镜像到本仓库 `rulesets/`，并记录来源、SHA-256 与大小。
 5. 生成 Mihomo `rule-providers` 和 Sub-Store JS 覆写。
 6. 生成 Loon `[Remote Filter]`、`[Proxy Group]`、`[Rule]`、`[Remote Rule]` 配置。
-7. 运行 smoke test；解析、镜像或生成失败时停止发布。
-8. 只有内容实际变化时才由 `github-actions[bot]` 自动提交。
+7. 从镜像后的 ACL4SSR AI 规则生成 `dist/sing-box/ai.json`。
+8. 使用官方 sing-box Docker 镜像编译 `dist/sing-box/ai.srs`。
+9. 运行 smoke test；解析、镜像、转换或编译失败时停止发布。
+10. 只有内容实际变化时才由 `github-actions[bot]` 自动提交。
 
 ## 仓库结构
 
@@ -152,10 +205,14 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_On
 └── sync-upstream.yml
 scripts/
 ├── generate.mjs
-└── loon.mjs
+├── loon.mjs
+└── sing-box.mjs
 dist/
 ├── acl4ssr-full.js
-└── acl4ssr-loon.conf
+├── acl4ssr-loon.conf
+└── sing-box/
+    ├── ai.json
+    └── ai.srs
 rulesets/
 └── *.list
 upstream/
@@ -167,10 +224,11 @@ upstream.json
 
 - ACL4SSR Full 配置 SHA-256
 - rules / groups / providers 数量
-- 两种输出文件路径
+- Mihomo、Loon 与 sing-box 输出文件路径
+- sing-box AI 转换后的规则数量与字段统计
 - 每个镜像规则的上游地址、镜像地址、SHA-256 和文件大小
 
-例如 OpenAI / ChatGPT 规则会直接同步到本仓库的 `rulesets/OpenAi_*.list`，可以在仓库内搜索 `chatgpt.com`、`openai.com` 等域名审计规则。
+例如 OpenAI / ChatGPT 规则会直接同步到本仓库的 `rulesets/OpenAi_*.list` 与 AI 规则中，可以在仓库内搜索 `chatgpt.com`、`openai.com` 等域名审计规则。
 
 ## 兼容性
 
@@ -185,6 +243,8 @@ upstream.json
 
 Mihomo 输出会在 Sub-Store 执行脚本时动态枚举节点名称；Loon 输出则使用 `[Remote Filter]` 的 `NameRegex` 对 Sub-Store Loon 订阅进行动态筛选。
 
+sing-box source rule-set 使用 version `3`，兼顾当前 sing-box 与较新的稳定版本；二进制规则由 GitHub Actions 中的官方 sing-box 镜像编译。
+
 ## 安全限制
 
 生成器只允许镜像以下前缀的规则：
@@ -194,6 +254,8 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/
 ```
 
 如果 ACL4SSR Full 突然引用其他域名，Action 会直接失败，避免盲目抓取未知地址。
+
+sing-box AI 转换同样采用 fail-closed：遇到无法识别的规则类型会停止生成，避免产生“看起来成功但实际缺规则”的不完整策略集。
 
 ## 授权与署名
 

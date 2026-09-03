@@ -6,7 +6,11 @@
   "providers": 31,
   "outputs": {
     "mihomo": "dist/acl4ssr-full.js",
-    "loon": "dist/acl4ssr-loon.conf"
+    "loon": "dist/acl4ssr-loon.conf",
+    "singbox": {
+      "source": "dist/sing-box/ai.json",
+      "binary": "dist/sing-box/ai.srs"
+    }
   },
   "mirroredRulesets": [
     {
@@ -226,5 +230,16 @@
       "sha256": "62b72d16b8f2bcbc80eb2c7af35dc03b31c4d82e732af6d227c2a311f04bdadc",
       "bytes": 928
     }
-  ]
+  ],
+  "singbox": {
+    "provider": "AI_a9f09ade",
+    "upstream": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/AI.list",
+    "ruleSetVersion": 3,
+    "rules": 49,
+    "fields": {
+      "domain": 12,
+      "domain_suffix": 34,
+      "domain_keyword": 3
+    }
+  }
 }

@@ -1,6 +1,6 @@
 # ACL4SSR Sub-Store Override
 
-把 ACL4SSR 官方 `ACL4SSR_Online_Full.ini` 自动转换为可用于 **Sub-Store / Mihomo**、**Loon** 与 **sing-box AI 分流** 的输出配置，并持续跟踪上游更新。
+把 ACL4SSR 官方 `ACL4SSR_Online_Full.ini` 自动转换为可用于 **Sub-Store / Mihomo** 与 **sing-box AI 分流** 的输出配置，并持续跟踪上游更新。
 
 > 非 ACL4SSR / Sub-Store 官方项目。规则与分组定义来源于 ACL4SSR，上游节点转换能力依赖 Sub-Store。
 
@@ -16,7 +16,6 @@
 ```text
 dist/
 ├── acl4ssr-full.js      # Sub-Store / Mihomo JavaScript 覆写
-├── acl4ssr-loon.conf    # Loon 配置模板
 └── sing-box/
     ├── ai.json          # sing-box source rule-set
     └── ai.srs           # sing-box binary rule-set
@@ -56,77 +55,18 @@ https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/acl4ssr-
 
 生成后，把 Sub-Store 的 **文件分享链接** 添加到 Clash Verge Rev、Mihomo Party 等 Mihomo 客户端即可。
 
-## Loon 使用方法
+### UDP / QUIC 处理
 
-Loon 不能直接把 Mihomo YAML 当作节点订阅解析，因此本项目额外生成：
-
-```text
-https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/acl4ssr-loon.conf
-```
-
-这个文件是 **Loon 配置模板，不是节点订阅链接**。
-
-### 1. 先准备 Sub-Store 的 Loon 节点订阅
-
-Sub-Store 官方支持 `target=Loon`。例如你的组合订阅叫 `all`，链接形态可以是：
+本项目不会关闭节点本身的 UDP 中继能力。对于 VLESS Vision + REALITY 这类以 TCP 作为代理入口、同时能够代理 UDP 的节点，生成的 Mihomo 规则会固定把下面这条规则放在最前面：
 
 ```text
-https://你的-Sub-Store-地址/download/collection/all?target=Loon&includeUnsupportedProxy=true
+AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
 ```
 
-`includeUnsupportedProxy=true` 可用于让 Sub-Store 输出包含 VLESS REALITY 等 Loon 支持但可能被兼容性检查过滤的节点。
+这只阻止 QUIC / HTTP/3 的 UDP 443，使应用回落到 TCP 443；Telegram、STUN、语音以及其他非 443 UDP 仍可按节点能力通过代理转发。
 
-### 2. 下载 Loon 配置模板
+VPS 只开放代理入口的 TCP 端口并不意味着要在客户端关闭 UDP 中继；服务端仍需具备正常的出站 UDP 能力。
 
-下载：
-
-```text
-https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/acl4ssr-loon.conf
-```
-
-找到：
-
-```text
-[Remote Proxy]
-Subs = __SUB_STORE_LOON_SUBSCRIPTION_URL__
-```
-
-把：
-
-```text
-__SUB_STORE_LOON_SUBSCRIPTION_URL__
-```
-
-替换成你自己的 Sub-Store Loon 订阅地址。
-
-例如：
-
-```text
-[Remote Proxy]
-Subs = https://example.com/download/collection/all?target=Loon&includeUnsupportedProxy=true
-```
-
-### 3. 导入 Loon
-
-可以把修改后的 `acl4ssr-loon.conf` 作为 Loon 配置模板使用，或者把以下几个 section 合并到你已有的 Loon 配置中：
-
-```text
-[Remote Proxy]
-[Remote Filter]
-[Proxy Group]
-[Rule]
-[Remote Rule]
-```
-
-其中：
-
-- `[Remote Proxy]`：读取 Sub-Store 输出的 Loon 节点。
-- `[Remote Filter]`：按 ACL4SSR 的地区/关键词正则筛选节点。
-- `[Proxy Group]`：生成 ACL4SSR 的节点选择、AI、Telegram、YouTube、Netflix 等策略组。
-- `[Remote Rule]`：引用本仓库镜像后的 ACL4SSR 规则集。
-- `[Rule]`：保存 `GEOIP`、`FINAL` 等内联规则。
-
-> 不要把 `acl4ssr-loon.conf` 填到 Loon 的“添加订阅”节点输入框里；节点订阅应该使用 Sub-Store 的 `target=Loon` 链接。
 
 ## sing-box AI 规则集
 
@@ -191,8 +131,8 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_On
 2. 解析 `ruleset=` 与 `custom_proxy_group=`。
 3. 下载 Full 配置实际引用的全部 ACL4SSR `.list` 文件。
 4. 镜像到本仓库 `rulesets/`，并记录来源、SHA-256 与大小。
-5. 生成 Mihomo `rule-providers` 和 Sub-Store JS 覆写。
-6. 生成 Loon `[Remote Filter]`、`[Proxy Group]`、`[Rule]`、`[Remote Rule]` 配置。
+5. 在 Mihomo 规则最前加入 UDP/443 QUIC 拦截规则。
+6. 生成 Mihomo `rule-providers` 和 Sub-Store JS 覆写。
 7. 从镜像后的 ACL4SSR AI 规则生成 `dist/sing-box/ai.json`。
 8. 使用官方 sing-box Docker 镜像编译 `dist/sing-box/ai.srs`。
 9. 运行 smoke test；解析、镜像、转换或编译失败时停止发布。
@@ -205,11 +145,9 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_On
 └── sync-upstream.yml
 scripts/
 ├── generate.mjs
-├── loon.mjs
 └── sing-box.mjs
 dist/
 ├── acl4ssr-full.js
-├── acl4ssr-loon.conf
 └── sing-box/
     ├── ai.json
     └── ai.srs
@@ -224,7 +162,7 @@ upstream.json
 
 - ACL4SSR Full 配置 SHA-256
 - rules / groups / providers 数量
-- Mihomo、Loon 与 sing-box 输出文件路径
+- Mihomo 与 sing-box 输出文件路径
 - sing-box AI 转换后的规则数量与字段统计
 - 每个镜像规则的上游地址、镜像地址、SHA-256 和文件大小
 
@@ -241,7 +179,7 @@ upstream.json
 - `ruleset=<策略>,<远程 URL>`
 - `ruleset=<策略>,[]<内联规则>`
 
-Mihomo 输出会在 Sub-Store 执行脚本时动态枚举节点名称；Loon 输出则使用 `[Remote Filter]` 的 `NameRegex` 对 Sub-Store Loon 订阅进行动态筛选。
+Mihomo 输出会在 Sub-Store 执行脚本时动态枚举节点名称，并保留 Sub-Store 已解析出的原始节点对象与 UDP 能力。
 
 sing-box source rule-set 使用 version `3`，兼顾当前 sing-box 与较新的稳定版本；二进制规则由 GitHub Actions 中的官方 sing-box 镜像编译。
 

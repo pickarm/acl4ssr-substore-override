@@ -7,17 +7,13 @@ on:
   pull_request:
     paths:
       - 'scripts/generate.mjs'
-      - 'scripts/loon.mjs'
       - 'scripts/sing-box.mjs'
-      - 'overrides/**'
       - '.github/workflows/sync-upstream.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/generate.mjs'
-      - 'scripts/loon.mjs'
       - 'scripts/sing-box.mjs'
-      - 'overrides/**'
       - '.github/workflows/sync-upstream.yml'
 
 permissions:
@@ -42,23 +38,21 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate Mihomo/Loon outputs and mirror rulesets
+      - name: Generate Mihomo output and mirror rulesets
         run: node scripts/generate.mjs
 
-      - name: Validate Loon ChatGPT iOS stability output
+      - name: Validate Mihomo QUIC guard
         shell: bash
         run: |
           set -euo pipefail
-          grep -F 'disable-udp-ports = 443' dist/acl4ssr-loon.conf
-          grep -F 'overrides/ChatGPT_iOS.list,policy=💬 Ai平台,enabled=true' dist/acl4ssr-loon.conf
-          grep -E '^💬 Ai平台 = select,ACL4SSR_FILTER_' dist/acl4ssr-loon.conf
-          if grep -E '^💬 Ai平台 = .*🚀 节点选择' dist/acl4ssr-loon.conf; then
-            echo 'AI group still contains nested proxy groups' >&2
-            exit 1
-          fi
-          grep -F 'DOMAIN,register.appattest.apple.com' overrides/ChatGPT_iOS.list
-          grep -F 'DOMAIN,humb.apple.com' overrides/ChatGPT_iOS.list
-          grep -F 'DOMAIN-SUFFIX,oaistatsig.com' overrides/ChatGPT_iOS.list
+          node <<'NODE'
+          const fs = require('node:fs');
+          const text = fs.readFileSync('dist/acl4ssr-full.js', 'utf8');
+          const expected = 'const RULES = [\n  "AND,((NETWORK,UDP),(DST-PORT,443)),REJECT"';
+          if (!text.includes(expected)) {
+            throw new Error('UDP/443 reject guard is missing or is not the first Mihomo rule');
+          }
+          NODE
 
       - name: Generate sing-box AI source rule-set
         run: node scripts/sing-box.mjs

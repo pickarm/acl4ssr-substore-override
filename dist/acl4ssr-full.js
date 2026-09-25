@@ -261,6 +261,7 @@ const RULE_PROVIDERS = {
 };
 
 const RULES = [
+  "AND,((NETWORK,UDP),(DST-PORT,443)),REJECT",
   "RULE-SET,LocalAreaNetwork_acf094a5,🎯 全球直连",
   "RULE-SET,UnBan_0d9969ff,🎯 全球直连",
   "RULE-SET,BanAD_abee8c0e,🛑 广告拦截",

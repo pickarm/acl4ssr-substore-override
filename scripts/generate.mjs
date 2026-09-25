@@ -1,13 +1,12 @@
 import { createHash } from 'node:crypto';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
-import { renderLoonConfig, LOON_SUBSCRIPTION_PLACEHOLDER } from './loon.mjs';
 
 const UPSTREAM = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini';
 const UPSTREAM_REPO = 'https://github.com/ACL4SSR/ACL4SSR';
 const ALLOWED_RULE_PREFIX = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/';
 const MIRROR_RAW_BASE = 'https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets';
 const MIHOMO_OUT = 'dist/acl4ssr-full.js';
-const LOON_OUT = 'dist/acl4ssr-loon.conf';
+const MIHOMO_UDP_443_REJECT = 'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT';
 const SNAPSHOT = 'upstream/ACL4SSR_Online_Full.ini';
 const RULESET_DIR = 'rulesets';
 
@@ -63,7 +62,7 @@ function parseIni(text) {
 
 function buildRules(rulesets) {
   const providers = {};
-  const rules = [];
+  const rules = [MIHOMO_UDP_443_REJECT];
   const providerByUrl = new Map();
   const providerSources = new Map();
 
@@ -161,18 +160,16 @@ function renderMihomo({ groups, providers, rules, upstreamSha }) {
   return `${header}\n\nconst RULE_PROVIDERS = ${JSON.stringify(providers, null, 2)};\n\nconst RULES = ${JSON.stringify(rules, null, 2)};\n\nconst GROUP_SPECS = ${JSON.stringify(specs, null, 2)};\n\nconst BUILTIN_POLICIES = new Set(['DIRECT', 'REJECT']);\n\nfunction uniq(items) {\n  return [...new Set(items.filter(Boolean))];\n}\n\nfunction matchNodes(names, patterns) {\n  if (!patterns.length) return [];\n  const out = [];\n  for (const pattern of patterns) {\n    let re;\n    try { re = new RegExp(pattern, 'i'); }\n    catch (e) { throw new Error('[ACL4SSR override] Invalid upstream regex ' + pattern + ': ' + e.message); }\n    for (const name of names) if (re.test(name)) out.push(name);\n  }\n  return uniq(out);\n}\n\nfunction resolveActiveGroups(nodeNames) {\n  const matches = new Map(GROUP_SPECS.map((spec) => [spec.name, matchNodes(nodeNames, spec.patterns)]));\n  const active = new Set();\n  let changed = true;\n\n  // A group is active only if it is grounded by at least one real node/builtin\n  // or references another already-grounded group. This also collapses empty\n  // dependency chains instead of leaving REJECT placeholders behind.\n  while (changed) {\n    changed = false;\n    for (const spec of GROUP_SPECS) {\n      if (active.has(spec.name)) continue;\n      const hasNodes = (matches.get(spec.name) || []).length > 0;\n      const hasGroundedRef = spec.refs.some((ref) => BUILTIN_POLICIES.has(ref) || active.has(ref));\n      if (hasNodes || hasGroundedRef) {\n        active.add(spec.name);\n        changed = true;\n      }\n    }\n  }\n\n  return { active, matches };\n}\n\nfunction buildGroup(spec, active, matches) {\n  const refs = spec.refs.filter((ref) => BUILTIN_POLICIES.has(ref) || active.has(ref));\n  const proxies = uniq([...refs, ...(matches.get(spec.name) || [])]);\n  if (!proxies.length) return null;\n\n  if (spec.type === 'select') return { name: spec.name, type: 'select', proxies };\n  if (spec.type === 'url-test' || spec.type === 'fallback') {\n    return { name: spec.name, type: spec.type, proxies, url: spec.url || 'http://www.gstatic.com/generate_204', interval: spec.interval || 300, tolerance: spec.tolerance || 50 };\n  }\n  if (spec.type === 'load-balance') {\n    return { name: spec.name, type: 'load-balance', proxies, url: spec.url || 'http://www.gstatic.com/generate_204', interval: spec.interval || 300, strategy: spec.strategy || 'consistent-hashing' };\n  }\n  throw new Error('[ACL4SSR override] Unsupported group type: ' + spec.type);\n}\n\nfunction main(config) {\n  if (!config || !Array.isArray(config.proxies) || config.proxies.length === 0) {\n    throw new Error('[ACL4SSR override] config.proxies is empty; use this script on a Clash/Mihomo file generated from Sub-Store nodes.');\n  }\n  const nodeNames = config.proxies.map((p) => p && p.name).filter(Boolean);\n  const { active, matches } = resolveActiveGroups(nodeNames);\n  const proxyGroups = GROUP_SPECS\n    .filter((spec) => active.has(spec.name))\n    .map((spec) => buildGroup(spec, active, matches))\n    .filter(Boolean);\n  return { ...config, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: RULES };\n}\n\nglobalThis.main = main;\n`;
 }
 
-async function smokeTest(mihomoText, loonText, meta, providers) {
+async function smokeTest(mihomoText, meta, providers) {
   if (!mihomoText.includes('globalThis.main = main')) throw new Error('Generated Mihomo script is missing main export');
   if (!mihomoText.includes('resolveActiveGroups')) throw new Error('Generated Mihomo script is missing empty-group pruning');
   if (!mihomoText.includes("'rule-providers'")) throw new Error('Generated Mihomo script is missing rule-providers');
-  if (!loonText.includes('[Remote Proxy]') || !loonText.includes('[Remote Rule]') || !loonText.includes('[Proxy Group]')) {
-    throw new Error('Generated Loon config is missing required sections');
+  if (!mihomoText.includes(`const RULES = [\n  "${MIHOMO_UDP_443_REJECT}"`)) {
+    throw new Error('Generated Mihomo rules must put the UDP/443 QUIC reject guard first');
   }
-  if (!loonText.includes(LOON_SUBSCRIPTION_PLACEHOLDER)) throw new Error('Generated Loon config lost subscription placeholder');
   if (meta.rules < 10 || meta.groups < 10 || meta.providers < 5) throw new Error(`Smoke test counts too small: ${JSON.stringify(meta)}`);
   for (const [name, provider] of Object.entries(providers)) {
     if (!provider.url.startsWith(`${MIRROR_RAW_BASE}/`)) throw new Error(`Provider ${name} is not using repository mirror`);
-    if (!loonText.includes(provider.url)) throw new Error(`Loon output is missing provider ${name}`);
   }
 }
 
@@ -185,33 +182,22 @@ async function main() {
   const { providers, rules, providerSources } = buildRules(parsed.rulesets);
   const mirroredRulesets = await mirrorRulesets(providerSources);
   const mihomoText = renderMihomo({ groups: parsed.groups, providers, rules, upstreamSha });
-  const loonText = renderLoonConfig({
-    groups: parsed.groups,
-    rulesets: parsed.rulesets,
-    providerSources,
-    providers,
-    upstream: UPSTREAM,
-    upstreamRepo: UPSTREAM_REPO,
-    upstreamSha,
-  });
-
   const meta = { rules: rules.length, groups: parsed.groups.length, providers: Object.keys(providers).length };
-  await smokeTest(mihomoText, loonText, meta, providers);
+  await smokeTest(mihomoText, meta, providers);
   if (mirroredRulesets.length !== meta.providers) throw new Error(`Mirrored ${mirroredRulesets.length} rulesets but generated ${meta.providers} providers`);
 
   await mkdir('dist', { recursive: true });
   await mkdir('upstream', { recursive: true });
   await writeFile(SNAPSHOT, text.endsWith('\n') ? text : text + '\n', 'utf8');
   await writeFile(MIHOMO_OUT, mihomoText, 'utf8');
-  await writeFile(LOON_OUT, loonText, 'utf8');
   await writeFile('upstream.json', JSON.stringify({
     upstream: UPSTREAM,
     sha256: upstreamSha,
     ...meta,
-    outputs: { mihomo: MIHOMO_OUT, loon: LOON_OUT },
+    outputs: { mihomo: MIHOMO_OUT },
     mirroredRulesets,
   }, null, 2) + '\n', 'utf8');
-  console.log(`Generated ${MIHOMO_OUT} and ${LOON_OUT}: ${meta.rules} rules, ${meta.groups} groups, ${meta.providers} mirrored providers`);
+  console.log(`Generated ${MIHOMO_OUT}: ${meta.rules} rules, ${meta.groups} groups, ${meta.providers} mirrored providers`);
 }
 
 await main();

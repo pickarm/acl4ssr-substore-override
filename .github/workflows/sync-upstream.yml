@@ -41,16 +41,21 @@ jobs:
       - name: Generate Mihomo output and mirror rulesets
         run: node scripts/generate.mjs
 
-      - name: Validate Mihomo QUIC guard
+      - name: Validate Mihomo VLESS UDP-over-TCP
         shell: bash
         run: |
           set -euo pipefail
           node <<'NODE'
           const fs = require('node:fs');
           const text = fs.readFileSync('dist/acl4ssr-full.js', 'utf8');
-          const expected = 'const RULES = [\n  "AND,((NETWORK,UDP),(DST-PORT,443)),REJECT"';
-          if (!text.includes(expected)) {
-            throw new Error('UDP/443 reject guard is missing or is not the first Mihomo rule');
+          if (text.includes('AND,((NETWORK,UDP),(DST-PORT,443)),REJECT')) {
+            throw new Error('Generated Mihomo output must not globally reject UDP/443');
+          }
+          if (!text.includes('function normalizeVlessProxy(proxy)')) {
+            throw new Error('Missing VLESS UDP normalizer');
+          }
+          if (!text.includes("udp: true, 'packet-encoding': 'xudp'")) {
+            throw new Error('VLESS nodes are not forced to UDP + XUDP');
           }
           NODE
 

@@ -55,17 +55,36 @@ https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/acl4ssr-
 
 生成后，把 Sub-Store 的 **文件分享链接** 添加到 Clash Verge Rev、Mihomo Party 等 Mihomo 客户端即可。
 
-### UDP / QUIC 处理
+### VLESS UDP-over-TCP
 
-本项目不会关闭节点本身的 UDP 中继能力。对于 VLESS Vision + REALITY 这类以 TCP 作为代理入口、同时能够代理 UDP 的节点，生成的 Mihomo 规则会固定把下面这条规则放在最前面：
+本项目现在会对 Sub-Store 输出中的 **VLESS** 节点自动补齐：
 
-```text
-AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+```yaml
+udp: true
+packet-encoding: xudp
 ```
 
-这只阻止 QUIC / HTTP/3 的 UDP 443，使应用回落到 TCP 443；Telegram、STUN、语音以及其他非 443 UDP 仍可按节点能力通过代理转发。
+不再生成任何 `UDP/443 REJECT`。因此语音、STUN、QUIC / HTTP3、游戏等应用 UDP 都可以进入 VLESS 的 UDP relay。
 
-VPS 只开放代理入口的 TCP 端口并不意味着要在客户端关闭 UDP 中继；服务端仍需具备正常的出站 UDP 能力。
+对于当前使用的 Vision + REALITY 节点，外层代理连接仍然是 TCP：
+
+```text
+应用 UDP
+  ↓
+Mihomo
+  ↓
+XUDP / VLESS UDP relay
+  ↓
+VLESS + TCP + REALITY
+  ↓
+VPS
+  ↓
+目标 UDP
+```
+
+脚本不会把 VLESS 的传输层强制改成其他协议；原节点未设置 `network` 时，Mihomo 的 VLESS 默认使用 TCP。VPS 不需要开放额外 UDP 入站端口，但服务端必须可以正常发起 UDP 出站连接。
+
+非 VLESS 节点对象保持原样。
 
 
 ## sing-box AI 规则集
@@ -131,8 +150,8 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_On
 2. 解析 `ruleset=` 与 `custom_proxy_group=`。
 3. 下载 Full 配置实际引用的全部 ACL4SSR `.list` 文件。
 4. 镜像到本仓库 `rulesets/`，并记录来源、SHA-256 与大小。
-5. 在 Mihomo 规则最前加入 UDP/443 QUIC 拦截规则。
-6. 生成 Mihomo `rule-providers` 和 Sub-Store JS 覆写。
+5. 生成 Mihomo `rule-providers` 和 Sub-Store JS 覆写，并对 VLESS 节点强制启用 `udp: true` + `packet-encoding: xudp`。
+6. 校验输出中不存在全局 UDP/443 REJECT，并检查 VLESS UDP normalizer。
 7. 从镜像后的 ACL4SSR AI 规则生成 `dist/sing-box/ai.json`。
 8. 使用官方 sing-box Docker 镜像编译 `dist/sing-box/ai.srs`。
 9. 运行 smoke test；解析、镜像、转换或编译失败时停止发布。
@@ -179,7 +198,7 @@ upstream.json
 - `ruleset=<策略>,<远程 URL>`
 - `ruleset=<策略>,[]<内联规则>`
 
-Mihomo 输出会在 Sub-Store 执行脚本时动态枚举节点名称，并保留 Sub-Store 已解析出的原始节点对象与 UDP 能力。
+Mihomo 输出会在 Sub-Store 执行脚本时动态枚举节点名称。除 VLESS 的 UDP 相关字段外，节点对象保持 Sub-Store 已解析的原始内容；VLESS 会统一写入 `udp: true` 与 `packet-encoding: xudp`。
 
 sing-box source rule-set 使用 version `3`，兼顾当前 sing-box 与较新的稳定版本；二进制规则由 GitHub Actions 中的官方 sing-box 镜像编译。
 

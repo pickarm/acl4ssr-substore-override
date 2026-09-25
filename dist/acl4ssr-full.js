@@ -261,7 +261,6 @@ const RULE_PROVIDERS = {
 };
 
 const RULES = [
-  "AND,((NETWORK,UDP),(DST-PORT,443)),REJECT",
   "RULE-SET,LocalAreaNetwork_acf094a5,🎯 全球直连",
   "RULE-SET,UnBan_0d9969ff,🎯 全球直连",
   "RULE-SET,BanAD_abee8c0e,🛑 广告拦截",
@@ -688,6 +687,16 @@ function uniq(items) {
   return [...new Set(items.filter(Boolean))];
 }
 
+function normalizeVlessProxy(proxy) {
+  if (!proxy || typeof proxy !== 'object') return proxy;
+  if (String(proxy.type || '').toLowerCase() !== 'vless') return proxy;
+
+  // Mihomo defaults udp=false. Force VLESS nodes to accept application UDP,
+  // and encode it as XUDP inside the existing VLESS transport. For the user's
+  // Vision + REALITY nodes the outer transport remains TCP (or TCP by default).
+  return { ...proxy, udp: true, 'packet-encoding': 'xudp' };
+}
+
 function matchNodes(names, patterns) {
   if (!patterns.length) return [];
   const out = [];
@@ -743,13 +752,14 @@ function main(config) {
   if (!config || !Array.isArray(config.proxies) || config.proxies.length === 0) {
     throw new Error('[ACL4SSR override] config.proxies is empty; use this script on a Clash/Mihomo file generated from Sub-Store nodes.');
   }
-  const nodeNames = config.proxies.map((p) => p && p.name).filter(Boolean);
+  const proxies = config.proxies.map(normalizeVlessProxy);
+  const nodeNames = proxies.map((p) => p && p.name).filter(Boolean);
   const { active, matches } = resolveActiveGroups(nodeNames);
   const proxyGroups = GROUP_SPECS
     .filter((spec) => active.has(spec.name))
     .map((spec) => buildGroup(spec, active, matches))
     .filter(Boolean);
-  return { ...config, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: RULES };
+  return { ...config, proxies, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: RULES };
 }
 
 globalThis.main = main;

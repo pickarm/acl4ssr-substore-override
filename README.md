@@ -55,6 +55,32 @@ https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/dist/acl4ssr-
 
 生成后，把 Sub-Store 的 **文件分享链接** 添加到 Clash Verge Rev、Mihomo Party 等 Mihomo 客户端即可。
 
+### 业务策略组直接选择明细节点
+
+生成脚本会把当前订阅中的实际节点名称直接追加到普通 `select` 业务组中。以 AI 为例：
+
+```text
+💬 Ai平台
+├── 🚀 节点选择
+├── ♻️ 自动选择
+├── 🇭🇰 香港节点
+├── 🇺🇲 美国节点
+├── DIRECT
+├── US 美国01移联优化   ← 实际节点
+├── HK 香港三网优化     ← 实际节点
+└── ...
+```
+
+因此不需要先进入 `🚀 手动切换` 才能手选节点。Telegram、YouTube、Netflix、国外媒体、Microsoft、Apple、游戏平台、漏网之鱼等普通业务 `select` 组同样会直接显示实际节点。
+
+以下辅助组保持原语义，不会无条件塞入全部节点：
+
+- `🚀 手动切换`：本身已经匹配全部节点。
+- `🎥 奈飞节点`：只保留 Netflix/解锁节点筛选。
+- `🛑 广告拦截` / `🍃 应用净化`：只保留 REJECT / DIRECT 等控制项。
+
+地区 `url-test` 组仍只包含对应地区节点，不会因为这个改动混入其他地区。
+
 ### VLESS UDP-over-TCP
 
 本项目现在会对 Sub-Store 输出中的 **VLESS** 节点自动补齐：

@@ -682,6 +682,7 @@ const GROUP_SPECS = [
 ];
 
 const BUILTIN_POLICIES = new Set(['DIRECT', 'REJECT']);
+const DIRECT_NODE_SELECT_EXCLUDES = new Set(['🚀 手动切换', '🎥 奈飞节点', '🛑 广告拦截', '🍃 应用净化']);
 
 function uniq(items) {
   return [...new Set(items.filter(Boolean))];
@@ -733,9 +734,18 @@ function resolveActiveGroups(nodeNames) {
   return { active, matches };
 }
 
-function buildGroup(spec, active, matches) {
+function shouldExposeDirectNodes(spec) {
+  if (spec.type !== 'select' || DIRECT_NODE_SELECT_EXCLUDES.has(spec.name)) return false;
+  // Business select groups reference other policies; helper filters usually only
+  // carry regex patterns. Expose real nodes in business groups without breaking
+  // filtered helpers such as Netflix-only nodes.
+  return spec.refs.length > 0 || spec.patterns.length === 0;
+}
+
+function buildGroup(spec, active, matches, nodeNames) {
   const refs = spec.refs.filter((ref) => BUILTIN_POLICIES.has(ref) || active.has(ref));
-  const proxies = uniq([...refs, ...(matches.get(spec.name) || [])]);
+  const directNodes = shouldExposeDirectNodes(spec) ? nodeNames : [];
+  const proxies = uniq([...refs, ...(matches.get(spec.name) || []), ...directNodes]);
   if (!proxies.length) return null;
 
   if (spec.type === 'select') return { name: spec.name, type: 'select', proxies };
@@ -757,7 +767,7 @@ function main(config) {
   const { active, matches } = resolveActiveGroups(nodeNames);
   const proxyGroups = GROUP_SPECS
     .filter((spec) => active.has(spec.name))
-    .map((spec) => buildGroup(spec, active, matches))
+    .map((spec) => buildGroup(spec, active, matches, nodeNames))
     .filter(Boolean);
   return { ...config, proxies, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: RULES };
 }

@@ -57,6 +57,24 @@ jobs:
           if (!text.includes("udp: true, 'packet-encoding': 'xudp'")) {
             throw new Error('VLESS nodes are not forced to UDP + XUDP');
           }
+
+          const vm = require('node:vm');
+          const sandbox = {};
+          vm.runInNewContext(text, sandbox);
+          const out = sandbox.main({
+            proxies: [
+              { name: 'US Detail Node', type: 'vless', server: '1.1.1.1', port: 443 },
+              { name: 'HK Detail Node', type: 'vless', server: '2.2.2.2', port: 443 }
+            ]
+          });
+          const ai = out['proxy-groups'].find((g) => /Ai平台|AI平台/.test(g.name));
+          if (!ai || !ai.proxies.includes('US Detail Node') || !ai.proxies.includes('HK Detail Node')) {
+            throw new Error('AI select group does not expose actual node names directly');
+          }
+          const ad = out['proxy-groups'].find((g) => g.name === '🛑 广告拦截');
+          if (ad && (ad.proxies.includes('US Detail Node') || ad.proxies.includes('HK Detail Node'))) {
+            throw new Error('Ad helper group must not expose arbitrary actual nodes');
+          }
           NODE
 
       - name: Generate sing-box AI source rule-set

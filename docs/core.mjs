@@ -1,10 +1,18 @@
-export const POLICIES = {direct:'直连',proxy:'代理',ai:'AI 平台',reject:'拦截'};
+import {POLICIES,CLIENTS,LOON,MIHOMO,SHADOWROCKET,target,clientListPath} from './policies.mjs';
+export {POLICIES} from './policies.mjs';
 export const TYPES = {'DOMAIN-SUFFIX':'域名及子域名',DOMAIN:'精确域名','DOMAIN-KEYWORD':'域名关键词','IP-CIDR':'IPv4 网段','IP-CIDR6':'IPv6 网段'};
 export const REPO = 'pickarm/acl4ssr-substore-override';
 export const RAW = `https://raw.githubusercontent.com/${REPO}/main/personal`;
 export function normalize(input) {
   const r = {...input};
   if (!Object.hasOwn(POLICIES,r.policy) || !Object.hasOwn(TYPES,r.type)) throw Error('请选择有效的匹配方式和策略');
+  const targets={};
+  if(r.targets!=null && (typeof r.targets!=='object'||Array.isArray(r.targets))) throw Error('客户端分组映射格式不正确');
+  for(const [client,id] of Object.entries(r.targets||{})){
+    if(!Object.hasOwn(CLIENTS,client)||!Object.hasOwn(CLIENTS[client],id)) throw Error(`未知客户端分组：${client}/${id}`);
+    targets[client]=id;
+  }
+  if(Object.keys(targets).length)r.targets=targets;else delete r.targets;
   r.value = String(r.value ?? '').trim().toLowerCase();
   if (!r.value || /[\s,#\r\n]/.test(r.value)) throw Error('目标不能为空，也不能含空格、逗号或注释');
   if (r.type.startsWith('DOMAIN')) {
@@ -40,7 +48,7 @@ export function ruleLine(r){return `${r.type},${r.value}${r.type.startsWith('IP-
 export function overlaps(doc){
   const warnings=[];const rules=doc.rules.filter(r=>r.enabled);
   for(let i=0;i<rules.length;i++)for(let j=i+1;j<rules.length;j++){
-    const a=rules[i],b=rules[j];if(a.policy===b.policy)continue;
+    const a=rules[i],b=rules[j];if(Object.keys(CLIENTS).every(c=>target(a,c)===target(b,c)))continue;
     const covers=(x,y)=>x.type==='DOMAIN-SUFFIX'&&['DOMAIN','DOMAIN-SUFFIX'].includes(y.type)&&(y.value===x.value||y.value.endsWith('.'+x.value));
     if(covers(a,b)||covers(b,a))warnings.push(`${a.value} 与 ${b.value} 的匹配范围重叠，策略不同`);
   }
@@ -49,13 +57,13 @@ export function overlaps(doc){
 export function files(doc){
   doc=validate(doc);
   const output={'personal/rules.json':JSON.stringify(doc,null,2)+'\n'};
-  for(const p of Object.keys(POLICIES)){
-    const rows=doc.rules.filter(r=>r.enabled && r.policy===p);
-    // Reserved .invalid placeholder keeps empty lists parseable in all clients.
-    output[`personal/${p}.list`]=`# Personal rules: ${p}. Managed by Rule Desk.\n`+(rows.length?rows.map(ruleLine).join('\n'):'# No active rules. Reserved non-public placeholder:\nDOMAIN,empty.personal-rules.invalid')+'\n';
-  }
-  output['personal/loon-snippet.conf']='# Add these lines BEFORE existing entries in [Remote Rule].\n[Remote Rule]\n'+Object.keys(POLICIES).map(p=>`${RAW}/${p}.list, policy=${({direct:'DIRECT',proxy:'🌐 国外网站',ai:'🤖 AI平台',reject:'REJECT'})[p]}, tag=个人${POLICIES[p]}, enabled=true`).join('\n')+'\n';
-  output['personal/shadowrocket-snippet.conf']='# Merge these entries into the TOP of your existing [Rule] section.\n# Replace PROXY with an existing proxy group if needed. This is NOT a full config.\n[Rule]\n'+Object.keys(POLICIES).map(p=>`RULE-SET,${RAW}/${p}.list,${({direct:'DIRECT',proxy:'PROXY',ai:'PROXY',reject:'REJECT'})[p]}`).join('\n')+'\n';
+  function list(path,rows,label){output[path]=`# Personal rules: ${label}. Managed by Rule Desk.\n`+(rows.length?rows.map(ruleLine).join('\n'):'# No active rules. Reserved non-public placeholder:\nDOMAIN,empty.personal-rules.invalid')+'\n';}
+  for(const [client,groups]of Object.entries(CLIENTS))for(const [id,label]of Object.entries(groups))list(clientListPath(client,id),doc.rules.filter(r=>r.enabled&&target(r,client)===id),`${client}/${label}`);
+  // Keep the four v1 URLs usable for previously configured clients. Fine-grained
+  // routing requires the one-time v2 subscription migration shown in the editor.
+  for(const id of ['direct','proxy','ai','reject'])list(`personal/${id}.list`,doc.rules.filter(r=>r.enabled&&(LOON[target(r,'loon')]==='DIRECT'?'direct':target(r,'loon')==='ai'?'ai':target(r,'loon')==='reject'?'reject':'proxy')===id),`legacy/${id}`);
+  output['personal/loon-snippet.conf']='# Replace the four old PERSONAL subscriptions with these eight entries.\n# Keep all ordinary subscriptions and private nodes. Add before ordinary Remote Rule entries.\n[Remote Rule]\n'+Object.entries(LOON).map(([id,label])=>`${RAW}/loon/${id}.list, policy=${label}, tag=个人${label}, enabled=true`).join('\n')+'\n';
+  output['personal/shadowrocket-snippet.conf']='# Merge these entries into the TOP of your existing [Rule] section.\n# Replace PROXY with an existing proxy group if needed. This is NOT a full config.\n[Rule]\n'+Object.entries(SHADOWROCKET).map(([id,label])=>`RULE-SET,${RAW}/shadowrocket/${id}.list,${label}`).join('\n')+'\n';
   output['personal/loon-geoip.list']='# Loon GeoIP fallback: place AFTER ordinary remote rules.\nGEOIP,CN\n';
   return output;
 }

@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import './personal.mjs';
 import { RAW as PERSONAL_RAW } from '../docs/core.mjs';
+import { MIHOMO } from '../docs/policies.mjs';
 
 const UPSTREAM = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini';
 const UPSTREAM_REPO = 'https://github.com/ACL4SSR/ACL4SSR';
@@ -98,11 +99,10 @@ function buildRules(rulesets) {
     rules.push(`RULE-SET,${provider},${policy}`);
   }
 
-  const personalPolicies = { direct: 'DIRECT', proxy: '🚀 节点选择', ai: '💬 Ai平台', reject: 'REJECT' };
   const personalRules = [];
-  for (const [key, policy] of Object.entries(personalPolicies)) {
+  for (const [key, policy] of Object.entries(MIHOMO)) {
     const name = `personal-${key}`;
-    providers[name] = { type: 'http', behavior: 'classical', format: 'text', url: `${PERSONAL_RAW}/${key}.list`, path: `./ruleset/${name}.list`, interval: 3600 };
+    providers[name] = { type: 'http', behavior: 'classical', format: 'text', url: `${PERSONAL_RAW}/mihomo/${key}.list`, path: `./ruleset/${name}.list`, interval: 3600 };
     personalRules.push(`RULE-SET,${name},${policy}`);
   }
   return { providers, rules: [...personalRules, ...rules], providerSources };
@@ -202,10 +202,34 @@ async function main() {
   const parsed = parseIni(text);
   const { providers, rules, providerSources } = buildRules(parsed.rulesets);
   const mirroredRulesets = await mirrorRulesets(providerSources);
-  const mihomoText = renderMihomo({ groups: parsed.groups, providers, rules, upstreamSha });
+  for (const name of Object.values(MIHOMO)) {
+    if (!['DIRECT', 'REJECT'].includes(name) && !parsed.groups.some(g => g.name === name)) {
+      throw new Error(`Personal policy catalog references a missing upstream group: ${name}`);
+    }
+  }
+  const mihomoText = renderMihomo({ groups: parsed.groups, providers, rules, upstreamSha }) + `
+// Personal region/Netflix helper groups can be pruned when no nodes match.
+// Route those rule-sets through the existing main selector, without creating
+// empty groups or leaving references to policies that do not exist.
+const personalBaseMain = globalThis.main;
+globalThis.main = function(config) {
+  const out = personalBaseMain(config);
+  const policies = new Set(['DIRECT', 'REJECT', ...out['proxy-groups'].map(g => g.name)]);
+  out.rules = out.rules.map(line => {
+    if (!line.startsWith('RULE-SET,personal-')) return line;
+    const parts = line.split(',');
+    if (!policies.has(parts[2])) {
+      if (!policies.has('🚀 节点选择')) throw new Error('Personal rules require an existing main proxy selector');
+      parts[2] = '🚀 节点选择';
+    }
+    return parts.join(',');
+  });
+  return out;
+};
+`;
   const meta = { rules: rules.length, groups: parsed.groups.length, providers: Object.keys(providers).length };
   await smokeTest(mihomoText, meta, providers);
-  if (mirroredRulesets.length + 4 !== meta.providers) throw new Error(`Mirrored ${mirroredRulesets.length} upstream rulesets but generated ${meta.providers} providers (including 4 personal providers)`);
+  if (mirroredRulesets.length + Object.keys(MIHOMO).length !== meta.providers) throw new Error(`Personal/upstream provider count mismatch`);
 
   await mkdir('dist', { recursive: true });
   await mkdir('upstream', { recursive: true });

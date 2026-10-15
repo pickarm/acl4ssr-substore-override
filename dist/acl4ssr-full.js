@@ -262,7 +262,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/direct.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/direct.list",
     "path": "./ruleset/personal-direct.list",
     "interval": 3600
   },
@@ -270,7 +270,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/proxy.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/proxy.list",
     "path": "./ruleset/personal-proxy.list",
     "interval": 3600
   },
@@ -278,7 +278,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/ai.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/ai.list",
     "path": "./ruleset/personal-ai.list",
     "interval": 3600
   },
@@ -286,8 +286,224 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/reject.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/reject.list",
     "path": "./ruleset/personal-reject.list",
+    "interval": 3600
+  },
+  "personal-manual": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/manual.list",
+    "path": "./ruleset/personal-manual.list",
+    "interval": 3600
+  },
+  "personal-auto": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/auto.list",
+    "path": "./ruleset/personal-auto.list",
+    "interval": 3600
+  },
+  "personal-telegram": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/telegram.list",
+    "path": "./ruleset/personal-telegram.list",
+    "interval": 3600
+  },
+  "personal-youtube": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/youtube.list",
+    "path": "./ruleset/personal-youtube.list",
+    "interval": 3600
+  },
+  "personal-netflix": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/netflix.list",
+    "path": "./ruleset/personal-netflix.list",
+    "interval": 3600
+  },
+  "personal-bahamut": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/bahamut.list",
+    "path": "./ruleset/personal-bahamut.list",
+    "interval": 3600
+  },
+  "personal-bilibili": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/bilibili.list",
+    "path": "./ruleset/personal-bilibili.list",
+    "interval": 3600
+  },
+  "personal-media": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/media.list",
+    "path": "./ruleset/personal-media.list",
+    "interval": 3600
+  },
+  "personal-china-media": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/china-media.list",
+    "path": "./ruleset/personal-china-media.list",
+    "interval": 3600
+  },
+  "personal-fcm": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/fcm.list",
+    "path": "./ruleset/personal-fcm.list",
+    "interval": 3600
+  },
+  "personal-bing": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/bing.list",
+    "path": "./ruleset/personal-bing.list",
+    "interval": 3600
+  },
+  "personal-onedrive": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/onedrive.list",
+    "path": "./ruleset/personal-onedrive.list",
+    "interval": 3600
+  },
+  "personal-microsoft": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/microsoft.list",
+    "path": "./ruleset/personal-microsoft.list",
+    "interval": 3600
+  },
+  "personal-apple": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/apple.list",
+    "path": "./ruleset/personal-apple.list",
+    "interval": 3600
+  },
+  "personal-games": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/games.list",
+    "path": "./ruleset/personal-games.list",
+    "interval": 3600
+  },
+  "personal-netease": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/netease.list",
+    "path": "./ruleset/personal-netease.list",
+    "interval": 3600
+  },
+  "personal-global-direct": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/global-direct.list",
+    "path": "./ruleset/personal-global-direct.list",
+    "interval": 3600
+  },
+  "personal-ads": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/ads.list",
+    "path": "./ruleset/personal-ads.list",
+    "interval": 3600
+  },
+  "personal-purify": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/purify.list",
+    "path": "./ruleset/personal-purify.list",
+    "interval": 3600
+  },
+  "personal-fallback": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/fallback.list",
+    "path": "./ruleset/personal-fallback.list",
+    "interval": 3600
+  },
+  "personal-hk": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/hk.list",
+    "path": "./ruleset/personal-hk.list",
+    "interval": 3600
+  },
+  "personal-jp": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/jp.list",
+    "path": "./ruleset/personal-jp.list",
+    "interval": 3600
+  },
+  "personal-us": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/us.list",
+    "path": "./ruleset/personal-us.list",
+    "interval": 3600
+  },
+  "personal-tw": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/tw.list",
+    "path": "./ruleset/personal-tw.list",
+    "interval": 3600
+  },
+  "personal-sg": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/sg.list",
+    "path": "./ruleset/personal-sg.list",
+    "interval": 3600
+  },
+  "personal-kr": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/kr.list",
+    "path": "./ruleset/personal-kr.list",
+    "interval": 3600
+  },
+  "personal-netflix-nodes": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/mihomo/netflix-nodes.list",
+    "path": "./ruleset/personal-netflix-nodes.list",
     "interval": 3600
   }
 };
@@ -297,6 +513,33 @@ const RULES = [
   "RULE-SET,personal-proxy,🚀 节点选择",
   "RULE-SET,personal-ai,💬 Ai平台",
   "RULE-SET,personal-reject,REJECT",
+  "RULE-SET,personal-manual,🚀 手动切换",
+  "RULE-SET,personal-auto,♻️ 自动选择",
+  "RULE-SET,personal-telegram,📲 电报消息",
+  "RULE-SET,personal-youtube,📹 油管视频",
+  "RULE-SET,personal-netflix,🎥 奈飞视频",
+  "RULE-SET,personal-bahamut,📺 巴哈姆特",
+  "RULE-SET,personal-bilibili,📺 哔哩哔哩",
+  "RULE-SET,personal-media,🌍 国外媒体",
+  "RULE-SET,personal-china-media,🌏 国内媒体",
+  "RULE-SET,personal-fcm,📢 谷歌FCM",
+  "RULE-SET,personal-bing,Ⓜ️ 微软Bing",
+  "RULE-SET,personal-onedrive,Ⓜ️ 微软云盘",
+  "RULE-SET,personal-microsoft,Ⓜ️ 微软服务",
+  "RULE-SET,personal-apple,🍎 苹果服务",
+  "RULE-SET,personal-games,🎮 游戏平台",
+  "RULE-SET,personal-netease,🎶 网易音乐",
+  "RULE-SET,personal-global-direct,🎯 全球直连",
+  "RULE-SET,personal-ads,🛑 广告拦截",
+  "RULE-SET,personal-purify,🍃 应用净化",
+  "RULE-SET,personal-fallback,🐟 漏网之鱼",
+  "RULE-SET,personal-hk,🇭🇰 香港节点",
+  "RULE-SET,personal-jp,🇯🇵 日本节点",
+  "RULE-SET,personal-us,🇺🇲 美国节点",
+  "RULE-SET,personal-tw,🇨🇳 台湾节点",
+  "RULE-SET,personal-sg,🇸🇬 狮城节点",
+  "RULE-SET,personal-kr,🇰🇷 韩国节点",
+  "RULE-SET,personal-netflix-nodes,🎥 奈飞节点",
   "RULE-SET,LocalAreaNetwork_acf094a5,🎯 全球直连",
   "RULE-SET,UnBan_0d9969ff,🎯 全球直连",
   "RULE-SET,BanAD_abee8c0e,🛑 广告拦截",
@@ -809,3 +1052,22 @@ function main(config) {
 }
 
 globalThis.main = main;
+
+// Personal region/Netflix helper groups can be pruned when no nodes match.
+// Route those rule-sets through the existing main selector, without creating
+// empty groups or leaving references to policies that do not exist.
+const personalBaseMain = globalThis.main;
+globalThis.main = function(config) {
+  const out = personalBaseMain(config);
+  const policies = new Set(['DIRECT', 'REJECT', ...out['proxy-groups'].map(g => g.name)]);
+  out.rules = out.rules.map(line => {
+    if (!line.startsWith('RULE-SET,personal-')) return line;
+    const parts = line.split(',');
+    if (!policies.has(parts[2])) {
+      if (!policies.has('🚀 节点选择')) throw new Error('Personal rules require an existing main proxy selector');
+      parts[2] = '🚀 节点选择';
+    }
+    return parts.join(',');
+  });
+  return out;
+};

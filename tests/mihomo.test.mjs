@@ -9,5 +9,7 @@ test('generated override places personal rules first and retains nodes + VLESS U
   assert.equal(output.proxies[0].uuid,'test');assert.equal(output.proxies[0].flow,'xtls-rprx-vision');assert.equal(output.proxies[0].udp,true);assert.equal(output.proxies[0]['packet-encoding'],'xudp');assert.equal(output.proxies[1].type,'ss');
   const policies=new Set(['DIRECT','REJECT',...output['proxy-groups'].map(g=>g.name)]);
   for(const line of output.rules)assert.ok(policies.has(line.split(',').at(-1)),`Missing policy for ${line}`);
-  for(const key of ['direct','proxy','ai','reject'])assert.match(output['rule-providers'][`personal-${key}`].url,new RegExp(`/personal/${key}\\.list$`));
+  for(const key of ['direct','proxy','ai','reject'])assert.match(output['rule-providers'][`personal-${key}`].url,new RegExp(`/personal/mihomo/${key}\\.list$`));
+  assert.equal(output.rules.find(r=>r.startsWith('RULE-SET,personal-hk,')),'RULE-SET,personal-hk,🚀 节点选择');
+  assert.equal(output.rules.find(r=>r.startsWith('RULE-SET,personal-us,')),'RULE-SET,personal-us,🇺🇲 美国节点');
 });

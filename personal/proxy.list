@@ -1,3 +1,2 @@
 # Personal rules: legacy/proxy. Managed by Rule Desk.
-# No active rules. Reserved non-public placeholder:
-DOMAIN,empty.personal-rules.invalid
+DOMAIN-SUFFIX,rule-desk-test.invalid

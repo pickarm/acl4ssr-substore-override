@@ -14,7 +14,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/LocalAreaNetwork_acf094a5.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/LocalAreaNetwork_acf094a5.list",
     "path": "./ruleset/LocalAreaNetwork_acf094a5.list",
     "interval": 86400
   },
@@ -22,7 +22,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/UnBan_0d9969ff.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/UnBan_0d9969ff.list",
     "path": "./ruleset/UnBan_0d9969ff.list",
     "interval": 86400
   },
@@ -30,7 +30,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/BanAD_abee8c0e.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BanAD_abee8c0e.list",
     "path": "./ruleset/BanAD_abee8c0e.list",
     "interval": 86400
   },
@@ -38,7 +38,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/BanProgramAD_28594a4a.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BanProgramAD_28594a4a.list",
     "path": "./ruleset/BanProgramAD_28594a4a.list",
     "interval": 86400
   },
@@ -46,7 +46,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/GoogleFCM_2c448de1.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/GoogleFCM_2c448de1.list",
     "path": "./ruleset/GoogleFCM_2c448de1.list",
     "interval": 86400
   },
@@ -54,7 +54,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/GoogleCN_8424d68f.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/GoogleCN_8424d68f.list",
     "path": "./ruleset/GoogleCN_8424d68f.list",
     "interval": 86400
   },
@@ -62,7 +62,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/SteamCN_b1174c6f.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/SteamCN_b1174c6f.list",
     "path": "./ruleset/SteamCN_b1174c6f.list",
     "interval": 86400
   },
@@ -70,7 +70,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Bing_e164d72c.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bing_e164d72c.list",
     "path": "./ruleset/Bing_e164d72c.list",
     "interval": 86400
   },
@@ -78,7 +78,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/OneDrive_005b69aa.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/OneDrive_005b69aa.list",
     "path": "./ruleset/OneDrive_005b69aa.list",
     "interval": 86400
   },
@@ -86,7 +86,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Microsoft_ed6d00d3.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Microsoft_ed6d00d3.list",
     "path": "./ruleset/Microsoft_ed6d00d3.list",
     "interval": 86400
   },
@@ -94,7 +94,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Apple_26dcf8cb.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Apple_26dcf8cb.list",
     "path": "./ruleset/Apple_26dcf8cb.list",
     "interval": 86400
   },
@@ -102,7 +102,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Telegram_85593da4.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Telegram_85593da4.list",
     "path": "./ruleset/Telegram_85593da4.list",
     "interval": 86400
   },
@@ -110,7 +110,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/AI_a9f09ade.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/AI_a9f09ade.list",
     "path": "./ruleset/AI_a9f09ade.list",
     "interval": 86400
   },
@@ -118,7 +118,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/OpenAi_a7d75fa5.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/OpenAi_a7d75fa5.list",
     "path": "./ruleset/OpenAi_a7d75fa5.list",
     "interval": 86400
   },
@@ -126,7 +126,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/NetEaseMusic_ba8da7f9.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/NetEaseMusic_ba8da7f9.list",
     "path": "./ruleset/NetEaseMusic_ba8da7f9.list",
     "interval": 86400
   },
@@ -134,7 +134,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Epic_6cf6ed93.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Epic_6cf6ed93.list",
     "path": "./ruleset/Epic_6cf6ed93.list",
     "interval": 86400
   },
@@ -142,7 +142,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Origin_178c71cd.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Origin_178c71cd.list",
     "path": "./ruleset/Origin_178c71cd.list",
     "interval": 86400
   },
@@ -150,7 +150,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Sony_0377de0f.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Sony_0377de0f.list",
     "path": "./ruleset/Sony_0377de0f.list",
     "interval": 86400
   },
@@ -158,7 +158,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Steam_ff9dec32.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Steam_ff9dec32.list",
     "path": "./ruleset/Steam_ff9dec32.list",
     "interval": 86400
   },
@@ -166,7 +166,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Nintendo_50ae9e3d.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Nintendo_50ae9e3d.list",
     "path": "./ruleset/Nintendo_50ae9e3d.list",
     "interval": 86400
   },
@@ -174,7 +174,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/YouTube_1e8c5527.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/YouTube_1e8c5527.list",
     "path": "./ruleset/YouTube_1e8c5527.list",
     "interval": 86400
   },
@@ -182,7 +182,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Netflix_40b41043.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Netflix_40b41043.list",
     "path": "./ruleset/Netflix_40b41043.list",
     "interval": 86400
   },
@@ -190,7 +190,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Bahamut_6939319a.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bahamut_6939319a.list",
     "path": "./ruleset/Bahamut_6939319a.list",
     "interval": 86400
   },
@@ -198,7 +198,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/BilibiliHMT_cc9a5c57.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BilibiliHMT_cc9a5c57.list",
     "path": "./ruleset/BilibiliHMT_cc9a5c57.list",
     "interval": 86400
   },
@@ -206,7 +206,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Bilibili_5a7c8357.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bilibili_5a7c8357.list",
     "path": "./ruleset/Bilibili_5a7c8357.list",
     "interval": 86400
   },
@@ -214,7 +214,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ChinaMedia_49a8480d.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaMedia_49a8480d.list",
     "path": "./ruleset/ChinaMedia_49a8480d.list",
     "interval": 86400
   },
@@ -222,7 +222,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ProxyMedia_41da071f.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyMedia_41da071f.list",
     "path": "./ruleset/ProxyMedia_41da071f.list",
     "interval": 86400
   },
@@ -230,7 +230,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ProxyGFWlist_1332c956.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyGFWlist_1332c956.list",
     "path": "./ruleset/ProxyGFWlist_1332c956.list",
     "interval": 86400
   },
@@ -238,7 +238,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ChinaDomain_f5fc54a5.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaDomain_f5fc54a5.list",
     "path": "./ruleset/ChinaDomain_f5fc54a5.list",
     "interval": 86400
   },
@@ -246,7 +246,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/ChinaCompanyIp_a42987c0.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaCompanyIp_a42987c0.list",
     "path": "./ruleset/ChinaCompanyIp_a42987c0.list",
     "interval": 86400
   },
@@ -254,7 +254,7 @@ const RULE_PROVIDERS = {
     "type": "http",
     "behavior": "classical",
     "format": "text",
-    "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Download_60a8ec99.list",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Download_60a8ec99.list",
     "path": "./ruleset/Download_60a8ec99.list",
     "interval": 86400
   },

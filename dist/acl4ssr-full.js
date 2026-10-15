@@ -1048,19 +1048,9 @@ function main(config) {
     .filter((spec) => active.has(spec.name))
     .map((spec) => buildGroup(spec, active, matches, nodeNames))
     .filter(Boolean);
-  return { ...config, proxies, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: RULES };
-}
-
-globalThis.main = main;
-
-// Personal region/Netflix helper groups can be pruned when no nodes match.
-// Route those rule-sets through the existing main selector, without creating
-// empty groups or leaving references to policies that do not exist.
-const personalBaseMain = globalThis.main;
-globalThis.main = function(config) {
-  const out = personalBaseMain(config);
-  const policies = new Set(['DIRECT', 'REJECT', ...out['proxy-groups'].map(g => g.name)]);
-  out.rules = out.rules.map(line => {
+  // Resolve targets after pruning, inside the actual script entry point.
+  const policies = new Set(['DIRECT', 'REJECT', ...proxyGroups.map(g => g.name)]);
+  const resolvedRules = RULES.map(line => {
     if (!line.startsWith('RULE-SET,personal-')) return line;
     const parts = line.split(',');
     if (!policies.has(parts[2])) {
@@ -1069,5 +1059,7 @@ globalThis.main = function(config) {
     }
     return parts.join(',');
   });
-  return out;
-};
+  return { ...config, proxies, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: resolvedRules };
+}
+
+globalThis.main = main;

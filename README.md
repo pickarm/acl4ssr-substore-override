@@ -28,6 +28,14 @@
 
 点击“保存到 GitHub”会将规则源、各客户端规则集和接入片段放在**同一提交**中，保存后直接刷新客户端规则即可。不同设备发生冲突时拒绝覆盖，先导出草稿、重新读取后合并。网页不会上传客户端里临时新增的本地规则。
 
+### Mihomo 空地区组与订阅更新失败
+
+Mihomo 的地区策略组按当前订阅节点动态生成：没有日本节点就不会生成 `🇯🇵 日本节点` 组。个人规则 `personal-jp` 等如果指向已消失的地区组，脚本会在**完成策略组裁剪后**自动回退到 `🚀 节点选择`，而不是输出无效的 RULE-SET 引用。只要日本节点再次出现，这条规则就恢复到 `🇯🇵 日本节点`。
+
+构建测试会实际执行生成的 JS，分别模拟“无日本节点”“有日本节点”“仅美国节点”的订阅，确保所有规则目标都存在，避免 Mihomo 因 `proxy ... not found` 拒绝更新配置。
+
+如果 GitHub 已修复而本地仍报旧错误，先确认 **Sub-Store 远程覆写脚本已更新并重新生成 Mihomo 配置文件**，而不是仅刷新 Mihomo 的节点；`cdn.jsdelivr.net/...@main/` 可能缓存旧脚本。必要时临时使用固定 Git commit SHA 的 `https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@<commit>/dist/acl4ssr-full.js` 以绕过分支版本缓存。更新后重新导出/刷新 Sub-Store 文件分享链接，不要混用旧的本地覆写脚本。
+
 每台设备首次接入方法见网页“设备接入”：
 
 - **Mihomo / Clash.Meta**：刷新 `dist/acl4ssr-full.js` 并通过 Sub-Store 重新生成配置一次。新版本在普通规则之前引用 personal-direct/proxy/ai/reject，默认每小时更新，支持手动刷新。旧版 Clash 内核不在本次兼容范围。

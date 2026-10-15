@@ -8,12 +8,20 @@ on:
     paths:
       - 'scripts/generate.mjs'
       - 'scripts/sing-box.mjs'
+      - 'scripts/personal.mjs'
+      - 'docs/core.mjs'
+      - 'personal/rules.json'
+      - 'tests/**'
       - '.github/workflows/sync-upstream.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/generate.mjs'
       - 'scripts/sing-box.mjs'
+      - 'scripts/personal.mjs'
+      - 'docs/core.mjs'
+      - 'personal/rules.json'
+      - 'tests/**'
       - '.github/workflows/sync-upstream.yml'
 
 permissions:
@@ -40,6 +48,9 @@ jobs:
 
       - name: Generate Mihomo output and mirror rulesets
         run: node scripts/generate.mjs
+
+      - name: Validate personal rules and concurrent-save behavior
+        run: node --test tests/*.test.mjs
 
       - name: Validate Mihomo VLESS UDP-over-TCP
         shell: bash
@@ -98,14 +109,14 @@ jobs:
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
-          if git diff --quiet -- dist/ upstream/ upstream.json rulesets/; then
+          if git diff --quiet -- dist/ upstream/ upstream.json rulesets/ personal/; then
             echo 'No upstream/generated changes.'
             exit 0
           fi
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add dist/ upstream/ upstream.json rulesets/
+          git add dist/ upstream/ upstream.json rulesets/ personal/
           git commit -m 'chore: sync ACL4SSR upstream and regenerate outputs'
 
           # The branch can move while a scheduled/manual run is executing.
@@ -113,3 +124,4 @@ jobs:
           # a non-fast-forward error. Concurrency above also serializes runs.
           git pull --rebase origin main
           git push origin HEAD:main
+

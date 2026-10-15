@@ -1,5 +1,27 @@
 # ACL4SSR Sub-Store Override
 
+## 个人规则管理网页
+
+管理地址：**https://pickarm.github.io/acl4ssr-substore-override/**
+
+在网页中添加、编辑、删除、停用规则，支持直连、代理、AI、拦截，支持批量导入与 JSON 备份。规则源是 `personal/rules.json`，Loon、Mihomo、小火箭共享 `personal/*.list`。
+
+首次在网页“连接 GitHub”中，用仅授权本仓库、Contents Read and write 的 fine-grained token 连接。令牌只在页面内存中使用，刷新后重新连接，不写进仓库、URL 或浏览器存储。网站不需要后端或第三方 CDN 脚本。公开查看无需令牌，写入必须有权限。
+
+点击“保存到 GitHub”会将规则源、四份规则集和接入片段放在**同一提交**中，保存后直接刷新客户端规则即可。不同设备发生冲突时拒绝覆盖，先导出草稿、重新读取后合并。网页不会上传客户端里临时新增的本地规则。
+
+每台设备首次接入方法见网页“设备接入”：
+
+- **Mihomo / Clash.Meta**：刷新 `dist/acl4ssr-full.js` 并通过 Sub-Store 重新生成配置一次。新版本在普通规则之前引用 personal-direct/proxy/ai/reject，默认每小时更新，支持手动刷新。旧版 Clash 内核不在本次兼容范围。
+- **Loon**：把 `personal/loon-snippet.conf` 条目合并到已有 `[Remote Rule]` 最前面，保持已有私人节点订阅。不能将片段当成完整配置导入。本地规则和插件规则仍可能优先于远程订阅。
+- **小火箭**：把 `personal/shadowrocket-snippet.conf` 条目合并到已有 `[Rule]` 最前面；把片段中的 `PROXY` 改为本机已有的策略组，AI 可单独指定组。
+
+共用规则支持 DOMAIN、DOMAIN-SUFFIX、DOMAIN-KEYWORD、IP-CIDR、IP-CIDR6。跨策略的重叠后缀会提示；不同客户端匹配细节不同，优先消除重叠。空列表只放保留域名 `.invalid` 占位，确保可解析。
+
+若直接使用 GitHub 自带编辑器改 `personal/rules.json`，GitHub Actions 会生成订阅文件（需等待运行完成）。网页保存则不必等待生成。已有上游规则、节点信息和两个仓库的业务组保持各自维护。
+
+本地检查：`node --test tests/personal.test.mjs`；生成个人订阅：`node scripts/personal.mjs`。Pages 使用 `main` 分支的 `/docs` 目录发布。
+
 把 ACL4SSR 官方 `ACL4SSR_Online_Full.ini` 自动转换为可用于 **Sub-Store / Mihomo** 与 **sing-box AI 分流** 的输出配置，并持续跟踪上游更新。
 
 > 非 ACL4SSR / Sub-Store 官方项目。规则与分组定义来源于 ACL4SSR，上游节点转换能力依赖 Sub-Store。
@@ -243,3 +265,4 @@ sing-box AI 转换同样采用 fail-closed：遇到无法识别的规则类型�
 ## 授权与署名
 
 ACL4SSR 上游仓库标注为 **CC BY-SA 4.0**。本项目中同步得到的上游快照、镜像规则及由其规则/分组定义生成的衍生内容同样按 CC BY-SA 4.0 分享，并保留上游来源与修改说明。详见 `LICENSE`。
+

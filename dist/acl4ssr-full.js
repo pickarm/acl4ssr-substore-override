@@ -257,10 +257,46 @@ const RULE_PROVIDERS = {
     "url": "https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets/Download_60a8ec99.list",
     "path": "./ruleset/Download_60a8ec99.list",
     "interval": 86400
+  },
+  "personal-direct": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/direct.list",
+    "path": "./ruleset/personal-direct.list",
+    "interval": 3600
+  },
+  "personal-proxy": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/proxy.list",
+    "path": "./ruleset/personal-proxy.list",
+    "interval": 3600
+  },
+  "personal-ai": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/ai.list",
+    "path": "./ruleset/personal-ai.list",
+    "interval": 3600
+  },
+  "personal-reject": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "url": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/personal/reject.list",
+    "path": "./ruleset/personal-reject.list",
+    "interval": 3600
   }
 };
 
 const RULES = [
+  "RULE-SET,personal-direct,DIRECT",
+  "RULE-SET,personal-proxy,🚀 节点选择",
+  "RULE-SET,personal-ai,💬 Ai平台",
+  "RULE-SET,personal-reject,REJECT",
   "RULE-SET,LocalAreaNetwork_acf094a5,🎯 全球直连",
   "RULE-SET,UnBan_0d9969ff,🎯 全球直连",
   "RULE-SET,BanAD_abee8c0e,🛑 广告拦截",

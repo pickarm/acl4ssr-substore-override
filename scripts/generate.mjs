@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
+import './personal.mjs';
+import { RAW as PERSONAL_RAW } from '../docs/core.mjs';
 
 const UPSTREAM = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini';
 const UPSTREAM_REPO = 'https://github.com/ACL4SSR/ACL4SSR';
@@ -96,7 +98,14 @@ function buildRules(rulesets) {
     rules.push(`RULE-SET,${provider},${policy}`);
   }
 
-  return { providers, rules, providerSources };
+  const personalPolicies = { direct: 'DIRECT', proxy: '🚀 节点选择', ai: '💬 Ai平台', reject: 'REJECT' };
+  const personalRules = [];
+  for (const [key, policy] of Object.entries(personalPolicies)) {
+    const name = `personal-${key}`;
+    providers[name] = { type: 'http', behavior: 'classical', format: 'text', url: `${PERSONAL_RAW}/${key}.list`, path: `./ruleset/${name}.list`, interval: 3600 };
+    personalRules.push(`RULE-SET,${name},${policy}`);
+  }
+  return { providers, rules: [...personalRules, ...rules], providerSources };
 }
 
 async function mirrorRulesets(providerSources) {
@@ -180,6 +189,7 @@ async function smokeTest(mihomoText, meta, providers) {
   }
   if (meta.rules < 10 || meta.groups < 10 || meta.providers < 5) throw new Error(`Smoke test counts too small: ${JSON.stringify(meta)}`);
   for (const [name, provider] of Object.entries(providers)) {
+    if (name.startsWith('personal-') && provider.url.startsWith(`${PERSONAL_RAW}/`)) continue;
     if (!provider.url.startsWith(`${MIRROR_RAW_BASE}/`)) throw new Error(`Provider ${name} is not using repository mirror`);
   }
 }
@@ -195,7 +205,7 @@ async function main() {
   const mihomoText = renderMihomo({ groups: parsed.groups, providers, rules, upstreamSha });
   const meta = { rules: rules.length, groups: parsed.groups.length, providers: Object.keys(providers).length };
   await smokeTest(mihomoText, meta, providers);
-  if (mirroredRulesets.length !== meta.providers) throw new Error(`Mirrored ${mirroredRulesets.length} rulesets but generated ${meta.providers} providers`);
+  if (mirroredRulesets.length + 4 !== meta.providers) throw new Error(`Mirrored ${mirroredRulesets.length} upstream rulesets but generated ${meta.providers} providers (including 4 personal providers)`);
 
   await mkdir('dist', { recursive: true });
   await mkdir('upstream', { recursive: true });
@@ -212,3 +222,4 @@ async function main() {
 }
 
 await main();
+

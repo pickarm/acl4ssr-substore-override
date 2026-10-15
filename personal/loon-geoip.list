@@ -1,0 +1,2 @@
+# Loon GeoIP fallback: place AFTER ordinary remote rules.
+GEOIP,CN

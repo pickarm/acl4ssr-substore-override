@@ -1,5 +1,6 @@
 import {POLICIES,TYPES,RAW,REPO,normalize,validate,importLines,overlaps} from './core.mjs';
 import {load,save} from './github.mjs';
+import {loginWithGitHub} from './oauth.mjs';
 import {CATALOG,CLIENTS,LOON,MIHOMO,describe,target} from './policies.mjs';
 const $=id=>document.getElementById(id);
 let doc={version:1,rules:[]},base=null,token='',dirty=false,busy=false,editing=null;
@@ -53,6 +54,12 @@ for(const id of ['add','empty-add'])$(id).onclick=()=>openEditor();
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
 $('search').oninput=update;$('filter').onchange=update;$('reload').onclick=refresh;
 $('connect').onclick=()=>$('auth').showModal();
+$('github-login').onclick=async()=>{
+  $('github-login').disabled=true;
+  try{const result=await loginWithGitHub();token=result.token;$('token').value='';$('auth').close();say(`已通过 GitHub 登录（${result.user.login}）。现在可以保存规则。`);if(!base)await refresh();else update();}
+  catch(e){say(e.message,true);}
+  finally{$('github-login').disabled=false;}
+};
 $('token-link').href='https://github.com/settings/personal-access-tokens/new?name=Rule%20Desk&description=Manage%20personal%20proxy%20rules';
 $('authorize').onclick=async()=>{const candidate=$('token').value.trim();if(!candidate)return say('请填写 GitHub 访问令牌。',true);$('authorize').disabled=true;try{const {request}=await import('./github.mjs');const repo=await request('',candidate);if(!repo.permissions?.push)throw Error('该令牌没有此仓库的写权限');token=candidate;$('token').value='';$('auth').close();say('GitHub 已连接，凭据仅在本页面内存中保存。');if(!base)await refresh();else update();}catch(e){alert(e.message);}finally{$('authorize').disabled=false;}};
 $('disconnect').onclick=()=>{token='';$('token').value='';$('auth').close();update();say('已清除本页面的连接凭据。');};

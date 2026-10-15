@@ -1,7 +1,7 @@
-import {POLICIES,TYPES,RAW,REPO,normalize,validate,importLines,overlaps} from './core.mjs';
-import {load,save} from './github.mjs';
-import {loginWithGitHub} from './oauth.mjs';
-import {CATALOG,CLIENTS,LOON,MIHOMO,describe,target} from './policies.mjs';
+import {POLICIES,TYPES,RAW,REPO,normalize,validate,importLines,overlaps} from './core.mjs?v=20261015-process1';
+import {load,save} from './github.mjs?v=20261015-process1';
+import {loginWithGitHub} from './oauth.mjs?v=20261015-process1';
+import {CATALOG,CLIENTS,LOON,MIHOMO,describe,target} from './policies.mjs?v=20261015-process1';
 const $=id=>document.getElementById(id);
 let doc={version:1,rules:[]},base=null,token='',dirty=false,busy=false,editing=null;
 const say=(text,error=false)=>{$('message').textContent=text;$('message').classList.toggle('error',error);};
@@ -62,7 +62,7 @@ $('github-login').onclick=async()=>{
   finally{$('github-login').disabled=false;}
 };
 $('token-link').href='https://github.com/settings/personal-access-tokens/new?name=Rule%20Desk&description=Manage%20personal%20proxy%20rules';
-$('authorize').onclick=async()=>{const candidate=$('token').value.trim();if(!candidate)return say('请填写 GitHub 访问令牌。',true);$('authorize').disabled=true;try{const {request}=await import('./github.mjs');const repo=await request('',candidate);if(!repo.permissions?.push)throw Error('该令牌没有此仓库的写权限');token=candidate;$('token').value='';$('auth').close();say('GitHub 已连接，凭据仅在本页面内存中保存。');if(!base)await refresh();else update();}catch(e){alert(e.message);}finally{$('authorize').disabled=false;}};
+$('authorize').onclick=async()=>{const candidate=$('token').value.trim();if(!candidate)return say('请填写 GitHub 访问令牌。',true);$('authorize').disabled=true;try{const {request}=await import('./github.mjs?v=20261015-process1');const repo=await request('',candidate);if(!repo.permissions?.push)throw Error('该令牌没有此仓库的写权限');token=candidate;$('token').value='';$('auth').close();say('GitHub 已连接，凭据仅在本页面内存中保存。');if(!base)await refresh();else update();}catch(e){alert(e.message);}finally{$('authorize').disabled=false;}};
 $('disconnect').onclick=()=>{token='';$('token').value='';$('auth').close();update();say('已清除本页面的连接凭据。');};
 $('publish').onclick=async()=>{if(!token)return $('auth').showModal();busy=true;update();say('正在将规则源与订阅文件一起保存到 GitHub…');try{const result=await save(doc,token,base);base=result;doc=result.doc;dirty=false;say('已保存到 GitHub！现在可在各客户端刷新个人远程规则，无需等待定时任务。');}catch(e){say(`保存失败：${e.message}；草稿仍保留，可导出备份。`,true);}finally{busy=false;update();}};
 $('import').onclick=()=>$('bulk').showModal();

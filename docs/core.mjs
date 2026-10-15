@@ -1,5 +1,5 @@
-import {POLICIES,CLIENTS,LOON,MIHOMO,SHADOWROCKET,target,clientListPath} from './policies.mjs';
-export {POLICIES} from './policies.mjs';
+import {POLICIES,CLIENTS,LOON,MIHOMO,SHADOWROCKET,target,clientListPath} from './policies.mjs?v=20261015-process1';
+export {POLICIES} from './policies.mjs?v=20261015-process1';
 export const TYPES = {'DOMAIN-SUFFIX':'域名及子域名',DOMAIN:'精确域名','DOMAIN-KEYWORD':'域名关键词','IP-CIDR':'IPv4 网段','IP-CIDR6':'IPv6 网段','PROCESS-NAME':'进程名称（Clash / Mihomo）'};
 export const REPO = 'pickarm/acl4ssr-substore-override';
 export const RAW = `https://raw.githubusercontent.com/${REPO}/main/personal`;

@@ -1048,17 +1048,29 @@ function main(config) {
     .filter((spec) => active.has(spec.name))
     .map((spec) => buildGroup(spec, active, matches, nodeNames))
     .filter(Boolean);
-  // Resolve targets after pruning, inside the actual script entry point.
+  // Resolve every rule target AFTER empty-region/helper groups have been pruned.
+  // Personal country rules such as personal-jp must not reference vanished
+  // country groups. Keep a real node selector as the safe proxy fallback.
   const policies = new Set(['DIRECT', 'REJECT', ...proxyGroups.map(g => g.name)]);
+  const definedGroups = new Set(GROUP_SPECS.map(spec => spec.name));
   const resolvedRules = RULES.map(line => {
-    if (!line.startsWith('RULE-SET,personal-')) return line;
-    const parts = line.split(',');
-    if (!policies.has(parts[2])) {
-      if (!policies.has('🚀 节点选择')) throw new Error('Personal rules require an existing main proxy selector');
-      parts[2] = '🚀 节点选择';
+    const at = line.lastIndexOf(',');
+    if (at < 0) throw new Error('[ACL4SSR override] Invalid generated rule: ' + line);
+    const policy = line.slice(at + 1).trim();
+    if (policies.has(policy)) return line;
+    if (!definedGroups.has(policy)) {
+      throw new Error('[ACL4SSR override] Rule targets unknown policy: ' + line);
     }
-    return parts.join(',');
+    if (!policies.has('🚀 节点选择')) {
+      throw new Error('[ACL4SSR override] Main node selector missing for pruned rule: ' + line);
+    }
+    return line.slice(0, at + 1) + '🚀 节点选择';
   });
+  for (const line of resolvedRules) {
+    if (!policies.has(line.slice(line.lastIndexOf(',') + 1).trim())) {
+      throw new Error('[ACL4SSR override] Rule still targets missing group: ' + line);
+    }
+  }
   return { ...config, proxies, 'proxy-groups': proxyGroups, 'rule-providers': RULE_PROVIDERS, rules: resolvedRules };
 }
 

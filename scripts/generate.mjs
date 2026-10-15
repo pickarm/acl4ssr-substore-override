@@ -7,7 +7,7 @@ import { MIHOMO } from '../docs/policies.mjs';
 const UPSTREAM = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini';
 const UPSTREAM_REPO = 'https://github.com/ACL4SSR/ACL4SSR';
 const ALLOWED_RULE_PREFIX = 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/';
-const MIRROR_RAW_BASE = 'https://cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override@main/rulesets';
+const MIRROR_RAW_BASE = 'https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets';
 const MIHOMO_OUT = 'dist/acl4ssr-full.js';
 const SNAPSHOT = 'upstream/ACL4SSR_Online_Full.ini';
 const RULESET_DIR = 'rulesets';
@@ -174,6 +174,9 @@ async function smokeTest(mihomoText, meta, providers) {
   if (!mihomoText.includes("'rule-providers'")) throw new Error('Generated Mihomo script is missing rule-providers');
   if (mihomoText.includes('AND,((NETWORK,UDP),(DST-PORT,443)),REJECT')) {
     throw new Error('Generated Mihomo rules must not globally reject UDP/443');
+  }
+  if (mihomoText.includes('cdn.jsdelivr.net/gh/pickarm/acl4ssr-substore-override')) {
+    throw new Error('Generated Mihomo output must use GitHub Raw, not jsDelivr links');
   }
   if (!mihomoText.includes('function normalizeVlessProxy(proxy)')) {
     throw new Error('Generated Mihomo script is missing VLESS UDP normalization');

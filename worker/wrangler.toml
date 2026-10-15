@@ -1,0 +1,8 @@
+name = "pickarm-rule-desk-auth"
+main = "worker.mjs"
+compatibility_date = "2026-10-15"
+workers_dev = true
+
+# Set GITHUB_CLIENT_ID and GITHUB_APP_ID as regular Worker variables.
+# Set GITHUB_CLIENT_SECRET as an encrypted Cloudflare Secret, never in source.
+# Client ID and App ID are public identifiers; no app private key is required.

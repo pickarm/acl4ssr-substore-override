@@ -1,3 +1,4 @@
 # Personal rules: mihomo/💬 Ai平台. Managed by Rule Desk.
-# No active rules. Reserved non-public placeholder:
-DOMAIN,empty.personal-rules.invalid
+PROCESS-NAME,ChatGPT.exe
+DOMAIN-SUFFIX,chatgpt.site
+PROCESS-NAME,ChatGPT (Beta).exe

@@ -1,5 +1,70 @@
 {
   "version": 1,
-  "rules": [],
-  "updatedAt": "2026-10-15T13:42:34.802Z"
+  "rules": [
+    {
+      "type": "PROCESS-NAME",
+      "policy": "ai",
+      "value": "ChatGPT.exe",
+      "note": "",
+      "id": "392b9972-42b1-4668-b588-d408b4ca512f",
+      "enabled": true
+    },
+    {
+      "type": "DOMAIN-KEYWORD",
+      "value": "cloudflare",
+      "policy": "proxy",
+      "id": "ba996766-3115-4972-83d9-091ac89be303",
+      "enabled": true,
+      "note": ""
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "value": "cloudflare.com",
+      "policy": "proxy",
+      "id": "d331dcbf-99ee-425e-b4ca-0cdb29f5b1d3",
+      "enabled": true,
+      "note": ""
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "value": "hwdns.net",
+      "policy": "proxy",
+      "id": "2d654428-9555-4488-aeb0-1ea0091542e8",
+      "enabled": true,
+      "note": ""
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "value": "chatgpt.site",
+      "policy": "ai",
+      "id": "d67a0ace-b714-4984-a218-47febc00e103",
+      "enabled": true,
+      "note": ""
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "value": "timcc.com",
+      "policy": "proxy",
+      "id": "e75251fd-ef54-476c-9874-7153e79ee1f1",
+      "enabled": true,
+      "note": ""
+    },
+    {
+      "type": "PROCESS-NAME",
+      "value": "ChatGPT (Beta).exe",
+      "policy": "ai",
+      "id": "26a2b4ac-179c-42e4-99d0-d311f6cc9d8e",
+      "enabled": true,
+      "note": ""
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "value": "shlii.io",
+      "policy": "auto",
+      "id": "28fa0c50-459e-4487-ae70-58ee5cc1c051",
+      "enabled": true,
+      "note": ""
+    }
+  ],
+  "updatedAt": "2026-10-15T13:45:56.775Z"
 }

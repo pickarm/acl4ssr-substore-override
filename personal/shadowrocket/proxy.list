@@ -1,3 +1,7 @@
 # Personal rules: shadowrocket/PROXY. Managed by Rule Desk.
-# No active rules. Reserved non-public placeholder:
-DOMAIN,empty.personal-rules.invalid
+DOMAIN-KEYWORD,cloudflare
+DOMAIN-SUFFIX,cloudflare.com
+DOMAIN-SUFFIX,hwdns.net
+DOMAIN-SUFFIX,chatgpt.site
+DOMAIN-SUFFIX,timcc.com
+DOMAIN-SUFFIX,shlii.io

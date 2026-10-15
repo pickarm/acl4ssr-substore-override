@@ -14,6 +14,7 @@ function categoryOptions(select,all=false){
     const o=el('option',spec.label);o.value=id;sections.get(spec.section).append(o);
   }
 }
+function routingDescription(rule,client){return rule.type==='PROCESS-NAME'&&client!=='mihomo'?'不适用（进程规则仅同步 Clash/Mihomo）':describe(rule,client);}
 function mappingControls(rule){
   for(const [client,groups]of Object.entries(CLIENTS)){
     const select=$(`target-${client}`);select.replaceChildren();
@@ -23,9 +24,9 @@ function mappingControls(rule){
   }
   mappingSummary();
 }
-function editorRule(){return {policy:$('rule-policy').value,targets:Object.fromEntries(Object.keys(CLIENTS).map(c=>[c,$(`target-${c}`).value]).filter(([,id])=>id))};}
+function editorRule(){return {type:$('rule-type').value,policy:$('rule-policy').value,targets:Object.fromEntries(Object.keys(CLIENTS).map(c=>[c,$(`target-${c}`).value]).filter(([,id])=>id))};}
 function mappingSummary(){
-  const rule=editorRule();$('mapping-summary').textContent=`Clash → ${describe(rule,'mihomo')}；Loon → ${describe(rule,'loon')}；小火箭 → ${describe(rule,'shadowrocket')}。`;
+  const rule=editorRule();for(const client of ['loon','shadowrocket'])$(`target-${client}`).disabled=rule.type==='PROCESS-NAME';$('mapping-summary').textContent=`Clash → ${routingDescription(rule,'mihomo')}；Loon → ${routingDescription(rule,'loon')}；小火箭 → ${routingDescription(rule,'shadowrocket')}。`;
   $('region-note').hidden=!['hk','jp','us','tw','sg','kr','netflix-nodes'].includes(target(rule,'mihomo'));
 }
 function update(){
@@ -36,11 +37,11 @@ function update(){
   const warnings=overlaps(doc);$('warnings').hidden=!warnings.length;$('warnings').textContent=warnings.slice(0,4).join('；')+(warnings.length?'。不同策略的重叠规则在各客户端可能有不同的匹配结果，建议消除重叠。':'');
   for(const [label,count] of [['全部规则',doc.rules.length],['已启用',doc.rules.filter(r=>r.enabled).length],['Clash 可选分组',Object.keys(MIHOMO).length],['Loon 可选策略',Object.keys(LOON).length]]){const s=el('div','','stat');s.append(el('span',label),el('strong',String(count)));$('stats').append(s);}
   $('rows').replaceChildren();const q=$('search').value.trim().toLowerCase(),p=$('filter').value;
-  const rows=doc.rules.filter(r=>(!p||r.policy===p)&&`${r.value} ${r.note} ${POLICIES[r.policy]} ${describe(r,'mihomo')} ${describe(r,'loon')}`.toLowerCase().includes(q));
+  const rows=doc.rules.filter(r=>(!p||r.policy===p)&&`${r.value} ${r.note} ${POLICIES[r.policy]} ${routingDescription(r,'mihomo')} ${routingDescription(r,'loon')}`.toLowerCase().includes(q));
   $('empty').hidden=rows.length>0;$('empty').querySelector('h3').textContent=doc.rules.length?'没有符合条件的规则':'从你的第一条规则开始';
   for(const r of rows){
     const tr=el('tr','',r.enabled?'':'disabled-row');const goal=el('td',r.value,'target');goal.append(el('small',TYPES[r.type]));
-    const policy=el('td','');policy.append(el('span',POLICIES[r.policy],`badge ${r.policy}`),el('small',`Clash → ${describe(r,'mihomo')}`,'mapping-line'),el('small',`Loon → ${describe(r,'loon')}`,'mapping-line'));
+    const policy=el('td','');policy.append(el('span',POLICIES[r.policy],`badge ${r.policy}`),el('small',`Clash → ${routingDescription(r,'mihomo')}`,'mapping-line'),el('small',`Loon → ${routingDescription(r,'loon')}`,'mapping-line'));
     const note=el('td',r.note||'—','note');note.title=r.note;const enabled=el('td','');const toggle=el('button',r.enabled?'已启用':'已停用','row-action');toggle.setAttribute('aria-label',`${r.enabled?'停用':'启用'} ${r.value}`);
     toggle.onclick=()=>{try{const next=structuredClone(doc);next.rules.find(x=>x.id===r.id).enabled=!r.enabled;doc=validate(next);changed();}catch(e){say(e.message,true);}};enabled.append(toggle);
     const actions=el('td','');const edit=el('button','编辑','row-action');edit.onclick=()=>openEditor(r);const del=el('button','删除','row-action delete');del.onclick=()=>{doc.rules=doc.rules.filter(x=>x.id!==r.id);changed();say(`已从草稿删除 ${r.value}；保存后同步。误删可重新读取或从修改历史恢复。`);};actions.append(edit,del);tr.append(goal,policy,note,enabled,actions);$('rows').append(tr);
@@ -80,5 +81,6 @@ for(const id of ['subscriptions','setup'])$(id).onclick=()=>$('links').showModal
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 // No token is ever stored in localStorage, sessionStorage, a cookie or a URL.
 categoryOptions($('rule-policy'));categoryOptions($('bulk-policy'));categoryOptions($('filter'),true);
+$('rule-type').onchange=mappingSummary;
 $('rule-policy').onchange=()=>mappingControls(editorRule());for(const client of Object.keys(CLIENTS))$(`target-${client}`).onchange=mappingSummary;
 refresh();

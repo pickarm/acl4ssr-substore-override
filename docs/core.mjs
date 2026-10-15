@@ -1,6 +1,6 @@
 import {POLICIES,CLIENTS,LOON,MIHOMO,SHADOWROCKET,target,clientListPath} from './policies.mjs';
 export {POLICIES} from './policies.mjs';
-export const TYPES = {'DOMAIN-SUFFIX':'域名及子域名',DOMAIN:'精确域名','DOMAIN-KEYWORD':'域名关键词','IP-CIDR':'IPv4 网段','IP-CIDR6':'IPv6 网段'};
+export const TYPES = {'DOMAIN-SUFFIX':'域名及子域名',DOMAIN:'精确域名','DOMAIN-KEYWORD':'域名关键词','IP-CIDR':'IPv4 网段','IP-CIDR6':'IPv6 网段','PROCESS-NAME':'进程名称（Clash / Mihomo）'};
 export const REPO = 'pickarm/acl4ssr-substore-override';
 export const RAW = `https://raw.githubusercontent.com/${REPO}/main/personal`;
 export function normalize(input) {
@@ -13,9 +13,12 @@ export function normalize(input) {
     targets[client]=id;
   }
   if(Object.keys(targets).length)r.targets=targets;else delete r.targets;
-  r.value = String(r.value ?? '').trim().toLowerCase();
-  if (!r.value || /[\s,#\r\n]/.test(r.value)) throw Error('目标不能为空，也不能含空格、逗号或注释');
-  if (r.type.startsWith('DOMAIN')) {
+  r.value = String(r.value ?? '').trim();
+  if(r.type!=='PROCESS-NAME')r.value=r.value.toLowerCase();
+  if (!r.value || (r.type==='PROCESS-NAME'?/[\x00-\x1f,\x7f#]/.test(r.value):/[\s,#\r\n]/.test(r.value))) throw Error('目标不能为空，不能含逗号、注释或控制字符；域名不能含空格');
+  if(r.type==='PROCESS-NAME'){
+    if(r.value.length>255||/[\\/:*?"<>|]/.test(r.value))throw Error('请输入进程文件名，不要包含路径、通配符或逗号');
+  } else if (r.type.startsWith('DOMAIN')) {
     if (/[/:?*@]/.test(r.value)) throw Error('请输入域名或关键词，不要包含 https://、路径或通配符');
     try {r.value = new URL(`https://${r.value}`).hostname.replace(/\.$/,'');} catch {throw Error('域名格式不正确');}
     if (r.type !== 'DOMAIN-KEYWORD' && (!r.value.includes('.') || !r.value.split('.').every(x=>/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(x)))) throw Error('请输入完整域名，例如 example.com');
@@ -38,12 +41,13 @@ export function validate(doc) {
   const rules=doc.rules.map(normalize);
   for(const r of rules){
     if(ids.has(r.id)) throw Error('规则 ID 重复'); ids.add(r.id);
-    const key=`${r.type},${r.value}`;
+    const key=`${r.type},${r.value.toLowerCase()}`;
     if(r.enabled && keys.has(key)) throw Error(`重复或冲突规则：${key}，请编辑已有规则`);
     if(r.enabled) keys.add(key);
   }
   return {...doc,rules};
 }
+export function appliesTo(rule,client){return rule.type!=='PROCESS-NAME'||client==='mihomo';}
 export function ruleLine(r){return `${r.type},${r.value}${r.type.startsWith('IP-')?',no-resolve':''}`;}
 export function overlaps(doc){
   const warnings=[];const rules=doc.rules.filter(r=>r.enabled);
@@ -58,10 +62,10 @@ export function files(doc){
   doc=validate(doc);
   const output={'personal/rules.json':JSON.stringify(doc,null,2)+'\n'};
   function list(path,rows,label){output[path]=`# Personal rules: ${label}. Managed by Rule Desk.\n`+(rows.length?rows.map(ruleLine).join('\n'):'# No active rules. Reserved non-public placeholder:\nDOMAIN,empty.personal-rules.invalid')+'\n';}
-  for(const [client,groups]of Object.entries(CLIENTS))for(const [id,label]of Object.entries(groups))list(clientListPath(client,id),doc.rules.filter(r=>r.enabled&&target(r,client)===id),`${client}/${label}`);
+  for(const [client,groups]of Object.entries(CLIENTS))for(const [id,label]of Object.entries(groups))list(clientListPath(client,id),doc.rules.filter(r=>r.enabled&&appliesTo(r,client)&&target(r,client)===id),`${client}/${label}`);
   // Keep the four v1 URLs usable for previously configured clients. Fine-grained
   // routing requires the one-time v2 subscription migration shown in the editor.
-  for(const id of ['direct','proxy','ai','reject'])list(`personal/${id}.list`,doc.rules.filter(r=>r.enabled&&(LOON[target(r,'loon')]==='DIRECT'?'direct':target(r,'loon')==='ai'?'ai':target(r,'loon')==='reject'?'reject':'proxy')===id),`legacy/${id}`);
+  for(const id of ['direct','proxy','ai','reject'])list(`personal/${id}.list`,doc.rules.filter(r=>r.enabled&&appliesTo(r,'loon')&&(LOON[target(r,'loon')]==='DIRECT'?'direct':target(r,'loon')==='ai'?'ai':target(r,'loon')==='reject'?'reject':'proxy')===id),`legacy/${id}`);
   output['personal/loon-snippet.conf']='# Replace the four old PERSONAL subscriptions with these eight entries.\n# Keep all ordinary subscriptions and private nodes. Add before ordinary Remote Rule entries.\n[Remote Rule]\n'+Object.entries(LOON).map(([id,label])=>`${RAW}/loon/${id}.list, policy=${label}, tag=个人${label}, enabled=true`).join('\n')+'\n';
   output['personal/shadowrocket-snippet.conf']='# Merge these entries into the TOP of your existing [Rule] section.\n# Replace PROXY with an existing proxy group if needed. This is NOT a full config.\n[Rule]\n'+Object.entries(SHADOWROCKET).map(([id,label])=>`RULE-SET,${RAW}/shadowrocket/${id}.list,${label}`).join('\n')+'\n';
   output['personal/loon-geoip.list']='# Loon GeoIP fallback: place AFTER ordinary remote rules.\nGEOIP,CN\n';

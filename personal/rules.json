@@ -64,7 +64,15 @@
       "id": "28fa0c50-459e-4487-ae70-58ee5cc1c051",
       "enabled": true,
       "note": ""
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "nodequality.com",
+      "note": "",
+      "id": "81b4da52-ea5e-4975-b3fd-a0750c0f6832",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-10-15T13:45:56.775Z"
+  "updatedAt": "2026-10-26T04:37:45.603Z"
 }

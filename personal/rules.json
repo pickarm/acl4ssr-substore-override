@@ -72,7 +72,15 @@
       "note": "",
       "id": "81b4da52-ea5e-4975-b3fd-a0750c0f6832",
       "enabled": true
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "fuckip.me",
+      "note": "",
+      "id": "9935ebdd-5cde-4e29-b10e-ad541a3840b8",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-10-26T04:37:45.603Z"
+  "updatedAt": "2026-10-28T11:23:06.935Z"
 }

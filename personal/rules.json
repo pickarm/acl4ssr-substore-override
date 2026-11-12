@@ -96,7 +96,15 @@
       "note": "",
       "id": "c613af00-4665-48ae-a3df-4decaa6c0046",
       "enabled": true
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "guangya.cc",
+      "note": "",
+      "id": "58fd3d62-3447-422d-b423-e3fffb627898",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-11-12T13:14:38.438Z"
+  "updatedAt": "2026-11-12T14:50:55.331Z"
 }

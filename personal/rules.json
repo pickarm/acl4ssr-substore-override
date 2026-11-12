@@ -80,7 +80,15 @@
       "note": "",
       "id": "9935ebdd-5cde-4e29-b10e-ad541a3840b8",
       "enabled": true
+    },
+    {
+      "type": "DOMAIN-KEYWORD",
+      "policy": "proxy",
+      "value": "openrouter",
+      "note": "",
+      "id": "e98c90b5-64f4-425f-8b80-447fab31bdc7",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-10-28T11:23:06.935Z"
+  "updatedAt": "2026-11-12T13:13:59.981Z"
 }

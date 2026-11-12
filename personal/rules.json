@@ -88,7 +88,15 @@
       "note": "",
       "id": "e98c90b5-64f4-425f-8b80-447fab31bdc7",
       "enabled": true
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "typesafe.ai",
+      "note": "",
+      "id": "c613af00-4665-48ae-a3df-4decaa6c0046",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-11-12T13:13:59.981Z"
+  "updatedAt": "2026-11-12T13:14:38.438Z"
 }

@@ -104,7 +104,15 @@
       "note": "",
       "id": "58fd3d62-3447-422d-b423-e3fffb627898",
       "enabled": true
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "www.readfrog.app",
+      "note": "",
+      "id": "e0084577-069e-4dad-b8ed-5d6e84de29b8",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-11-12T14:50:55.331Z"
+  "updatedAt": "2026-11-15T17:02:40.846Z"
 }

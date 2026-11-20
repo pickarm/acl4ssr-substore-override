@@ -123,7 +123,15 @@
       "targets": {
         "mihomo": "ai"
       }
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "ai",
+      "value": "meta.com",
+      "note": "",
+      "id": "a4d0770e-57d2-4a17-873b-2c899c16b16b",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-11-20T21:02:35.914Z"
+  "updatedAt": "2026-11-20T21:04:57.966Z"
 }

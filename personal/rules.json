@@ -112,7 +112,15 @@
       "note": "",
       "id": "e0084577-069e-4dad-b8ed-5d6e84de29b8",
       "enabled": true
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "muse.ai",
+      "note": "",
+      "id": "ffff6248-2193-4310-a368-0be9ab8269fb",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-11-15T17:02:40.846Z"
+  "updatedAt": "2026-11-20T20:58:07.903Z"
 }

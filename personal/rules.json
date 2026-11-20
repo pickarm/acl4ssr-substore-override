@@ -115,12 +115,15 @@
     },
     {
       "type": "DOMAIN-SUFFIX",
-      "policy": "proxy",
+      "policy": "ai",
       "value": "muse.ai",
       "note": "",
       "id": "ffff6248-2193-4310-a368-0be9ab8269fb",
-      "enabled": true
+      "enabled": true,
+      "targets": {
+        "mihomo": "ai"
+      }
     }
   ],
-  "updatedAt": "2026-11-20T20:58:07.903Z"
+  "updatedAt": "2026-11-20T21:02:35.914Z"
 }

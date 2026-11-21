@@ -30,8 +30,8 @@
       "provider": "BanAD_abee8c0e",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BanAD_abee8c0e.list",
-      "sha256": "27a5f6d018d428409d8da5d9f390a46298d505ae4941bb8172f052055abe7262",
-      "bytes": 15550
+      "sha256": "110117815a28fba39adcd32da1c6cf2c8b61b4a8e910ef5afdf965647bdc72a9",
+      "bytes": 15618
     },
     {
       "provider": "BanProgramAD_28594a4a",
@@ -44,7 +44,7 @@
       "provider": "GoogleFCM_2c448de1",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/GoogleFCM_2c448de1.list",
-      "sha256": "d810e40f3294eea783149510bf45556bf50e5246637ddbb50ad3028ac4957b45",
+      "sha256": "03a6622e49def6dca5e80e3c3d75a6d636171bdd30ff18ecb52fd1e1acfbecf9",
       "bytes": 1615
     },
     {
@@ -100,14 +100,14 @@
       "provider": "AI_a9f09ade",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/AI.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/AI_a9f09ade.list",
-      "sha256": "63e70895ac8c04c3b28965dc0b4ba9ceb3a1313a66b49487ed96005debc97e1e",
-      "bytes": 1456
+      "sha256": "a7e371ad279848ce1495d63840031bc9577d1d952063a5f6a05363f39a870af8",
+      "bytes": 1643
     },
     {
       "provider": "OpenAi_a7d75fa5",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/OpenAi_a7d75fa5.list",
-      "sha256": "c4f839e4dda6cb96e4373349c72b4e5f848b8ae03564c0d0eae0873955310129",
+      "sha256": "301248f4d0eeada13e72c9fc0e4a3820f0afa911b05ec39b5b8d41618fd58017",
       "bytes": 539
     },
     {
@@ -121,7 +121,7 @@
       "provider": "Epic_6cf6ed93",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Epic.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Epic_6cf6ed93.list",
-      "sha256": "b0288addbceed03366cc793b4254168fe9e6e7c9fa54875026fb772adb5ba31d",
+      "sha256": "f7e3ccf5b7346afb7bed256e6cc0e344f0228940289303ac34814731c470227e",
       "bytes": 204
     },
     {
@@ -156,21 +156,21 @@
       "provider": "YouTube_1e8c5527",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/YouTube_1e8c5527.list",
-      "sha256": "1b43d418785e46c9ed36f0eec8f35bf405d904536526fd813e0ff54d7f80e98c",
+      "sha256": "333509c05700f41ea43fff5a03078887fce3913b52c835b04fca47ff664d0a8f",
       "bytes": 419
     },
     {
       "provider": "Netflix_40b41043",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Netflix.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Netflix_40b41043.list",
-      "sha256": "00be3d935694387890c2ebe01a374c7404ef6f3eb54815cf7f720bc8e06d41ba",
+      "sha256": "c5a3021c2af6e71eddf22fc2c67a1f23e1d2255d624cb76fd150648a98cb64c9",
       "bytes": 1332
     },
     {
       "provider": "Bahamut_6939319a",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bahamut.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bahamut_6939319a.list",
-      "sha256": "797a91574f8360a9d9af573c6fd50536f2471a9f36759f3a03f478a4aa8514ff",
+      "sha256": "9085894f6bb43da7cde4a8b2389a6c42c392bbca6c8c71a3a8e95dd6c014bcfa",
       "bytes": 183
     },
     {
@@ -184,29 +184,29 @@
       "provider": "Bilibili_5a7c8357",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Bilibili.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Bilibili_5a7c8357.list",
-      "sha256": "83b2ede925a4eaa267ee99b1a7d427c3925d1fba99f9561c1567a91f21b5bdb6",
-      "bytes": 575
+      "sha256": "d959de76100ba98b4aa5bde2ccd4a4f4f9f9bd09c050d6455ca91a28bc297176",
+      "bytes": 601
     },
     {
       "provider": "ChinaMedia_49a8480d",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaMedia.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaMedia_49a8480d.list",
-      "sha256": "622faf0b5ff3e9f4675a9ae28d8abe57cd2cc58c4ac52871007c7247a0497fda",
-      "bytes": 1307
+      "sha256": "bcbc349977894e7757f044e8a70573f5b95c617da7e7cd2f38931ac2c584093d",
+      "bytes": 1326
     },
     {
       "provider": "ProxyMedia_41da071f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyMedia_41da071f.list",
-      "sha256": "07e63092a07b8d5e6940ce719de718022e722fe2d054d94e616a9fce24f2e710",
-      "bytes": 11503
+      "sha256": "a78b102a5dfa4e2c30fa30f9bcaae2ac6f7fbfd022b231f80fdf85bb0d3fc52d",
+      "bytes": 9671
     },
     {
       "provider": "ProxyGFWlist_1332c956",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyGFWlist_1332c956.list",
-      "sha256": "72d5f97cb3adedd7ef632962effda4aa3b9953da20427cd6050d55d1184de5ea",
-      "bytes": 191112
+      "sha256": "537c8625e970894c5ac7420db820633817b17f493851c32af08274a7b247d5c4",
+      "bytes": 202212
     },
     {
       "provider": "ChinaDomain_f5fc54a5",
@@ -234,11 +234,11 @@
     "provider": "AI_a9f09ade",
     "upstream": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/AI.list",
     "ruleSetVersion": 3,
-    "rules": 49,
+    "rules": 55,
     "fields": {
-      "domain": 12,
-      "domain_suffix": 34,
-      "domain_keyword": 3
+      "domain": 15,
+      "domain_suffix": 36,
+      "domain_keyword": 4
     }
   }
 }

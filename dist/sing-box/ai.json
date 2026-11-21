@@ -12,7 +12,10 @@
         "console.groq.com",
         "copilot-proxy.githubusercontent.com",
         "gemini.google.com",
+        "geminiweb-pa.clients.google.com",
+        "geminiweb-pa.clients6.google.com",
         "generativelanguage.googleapis.com",
+        "notebooklm-pa.googleapis.com",
         "notebooklm.google.com",
         "sydney.bing.com"
       ],
@@ -22,6 +25,7 @@
         "auth0.com",
         "bard.google.com",
         "chatgpt.com",
+        "clau.de",
         "claude.ai",
         "claude.com",
         "claudeusercontent.com",
@@ -35,6 +39,7 @@
         "gemini.google.com",
         "grazie.ai",
         "grazie.aws.intellij.net",
+        "grok.com",
         "identrust.com",
         "intercom.io",
         "intercomcdn.com",
@@ -54,6 +59,7 @@
       ],
       "domain_keyword": [
         "anthropic",
+        "antigravity",
         "claude",
         "openai"
       ]

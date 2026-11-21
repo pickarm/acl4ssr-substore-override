@@ -125,13 +125,16 @@
       }
     },
     {
-      "type": "DOMAIN-SUFFIX",
-      "policy": "ai",
-      "value": "meta.com",
+      "type": "DOMAIN-KEYWORD",
+      "policy": "proxy",
+      "value": "meta",
       "note": "",
       "id": "a4d0770e-57d2-4a17-873b-2c899c16b16b",
-      "enabled": true
+      "enabled": true,
+      "targets": {
+        "mihomo": "proxy"
+      }
     }
   ],
-  "updatedAt": "2026-11-20T21:04:57.966Z"
+  "updatedAt": "2026-11-21T10:51:55.107Z"
 }

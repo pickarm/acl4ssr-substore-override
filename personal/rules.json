@@ -134,7 +134,15 @@
       "targets": {
         "mihomo": "proxy"
       }
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "policy": "proxy",
+      "value": "supermemory.ai",
+      "note": "",
+      "id": "9ecca7d2-5355-4c1f-80ac-5542506c8802",
+      "enabled": true
     }
   ],
-  "updatedAt": "2026-11-21T10:51:55.107Z"
+  "updatedAt": "2026-11-23T15:27:24.678Z"
 }

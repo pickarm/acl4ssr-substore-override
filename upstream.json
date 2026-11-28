@@ -30,8 +30,8 @@
       "provider": "BanAD_abee8c0e",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/BanAD_abee8c0e.list",
-      "sha256": "110117815a28fba39adcd32da1c6cf2c8b61b4a8e910ef5afdf965647bdc72a9",
-      "bytes": 15618
+      "sha256": "8e9ac673d8f8d51a52595127f7c80ef65c288c372b0df363f0b62812990ab979",
+      "bytes": 15593
     },
     {
       "provider": "BanProgramAD_28594a4a",
@@ -58,8 +58,8 @@
       "provider": "SteamCN_b1174c6f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/SteamCN_b1174c6f.list",
-      "sha256": "7337ee246d54b7b95a8379ef2b5f410a755d8f7132cbf7569d08d1362869f807",
-      "bytes": 498
+      "sha256": "0bed5bb5d9f21d8862c4d129abdb125e4e5646d6077c1abfe966ecbea3c9d678",
+      "bytes": 528
     },
     {
       "provider": "Bing_e164d72c",
@@ -142,8 +142,8 @@
       "provider": "Steam_ff9dec32",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Steam.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/Steam_ff9dec32.list",
-      "sha256": "5d144ed75f2205941b4d72a284ad77494ab236d9c710cbb0200bd39c9933c345",
-      "bytes": 608
+      "sha256": "dd9eb23ec04578918afd706524378f7b38c5e7ab0f1ec01d4da127cf13a47e60",
+      "bytes": 578
     },
     {
       "provider": "Nintendo_50ae9e3d",
@@ -198,22 +198,22 @@
       "provider": "ProxyMedia_41da071f",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyMedia_41da071f.list",
-      "sha256": "a78b102a5dfa4e2c30fa30f9bcaae2ac6f7fbfd022b231f80fdf85bb0d3fc52d",
-      "bytes": 9671
+      "sha256": "cc3a9ab6238a2091222f1e5a161abc596efa550313f5ff55f4fb9de7a055032c",
+      "bytes": 9702
     },
     {
       "provider": "ProxyGFWlist_1332c956",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ProxyGFWlist_1332c956.list",
-      "sha256": "537c8625e970894c5ac7420db820633817b17f493851c32af08274a7b247d5c4",
-      "bytes": 202212
+      "sha256": "c54881610a8c4c6d83289688514de097726ed1239afd652ff813bb85efa65560",
+      "bytes": 202289
     },
     {
       "provider": "ChinaDomain_f5fc54a5",
       "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list",
       "mirror": "https://raw.githubusercontent.com/pickarm/acl4ssr-substore-override/main/rulesets/ChinaDomain_f5fc54a5.list",
-      "sha256": "362edd1f605742b360eaf138f151d7eea96cc17f20ef12da73acbfb80c350e08",
-      "bytes": 17251
+      "sha256": "92f90e75ffc64dd2996552593a66e0d46a841ee0ff50c0efecbfc9d7cd6e2ed4",
+      "bytes": 17486
     },
     {
       "provider": "ChinaCompanyIp_a42987c0",
